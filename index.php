@@ -107,7 +107,6 @@ if ($name !== ''){ //if the input is NOT empty
     <?php endforeach; ?>
 
 
-    //-----
     <!-- AI: ChatGPT (GPT-6), 2026-10-07.
      Helped implement a conditional to display a message when no matching recipes are found. -->
 
@@ -115,7 +114,7 @@ if ($name !== ''){ //if the input is NOT empty
     <?php if ( $name !== '' && empty($matches)): ?> <!--if the input has no match with anything in the array-->
         <p>Sorry we don't have <?= e($name)?> !</p> <!--display this-->
     <?php endif; ?>
-    //-----
+ 
     
 </body>
 </html>
