@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+require_once 'db.php';
+
 
 function trim_value(string $key): string { //function trim_value gets a string and returns a string (": string")
     return trim($_GET[$key] ?? ''); //get the data and if it exists and isn't null(??) give the value or give an empty string('')
@@ -10,23 +12,12 @@ function e(string $key): string {
     return htmlspecialchars($key, ENT_QUOTES, 'UTF-8'); 
 } //this function is to safely display text
 
-// array of some of the sample recipes
-$recipes = [
-    "Ancho-Orange Chicken",
-    "Beef Medallions & Mushroom Sauce",
-    "Broccoli & Basil Pesto Sandwiches",
-    "Bucatini Alfredo",
-    "Bucatini & Tomato Sauce",
-    "Roasted Cauliflower Salad",
-    "Roasted Chicken & Fall Vegetables",
-    "Salmon & Honey-Glazed Carrots",
-    "Seared Chicken & Mashed Potatoes",
-    "Seared Steaks & Garlic Butter",
-    "Shrimp Fra Diavolo",
-    "Spicy Pork & Korean Rice Cakes",
-    "Sweet & Sour Vegetable Stir-Fry",
-    "Thai Curry Chicken"
-];
+
+$sql = 'SELECT * FROM recipes'; // Select=recieve data | *=select all columns | FROM...=gets data from table
+$result = mysqli_query($conn, $sql); //run the SQL using db connection
+$recipes = mysqli_fetch_all($result, MYSQLI_ASSOC); // get the rows and sroes them in recipes
+
+
 
 $name = trim_value('name'); //this will get user input
 
@@ -57,12 +48,20 @@ if (isset($_GET['name'])){ //isset will check if something was submitted basical
 //look through each recipe
 if ($name !== ''){ //if the input is NOT empty
      foreach ($recipes as $recipe){ //loop through recipes and run each one as recipe(a single one)
-    if (str_contains(strtolower($recipe),strtolower($name))){ //if string contains the search term, covert the recipe name to lowercase and user serach to lowecase (this way it can match and come back as true)
+    if (str_contains(strtolower($recipe['title']),strtolower($name))){ //if string contains the search term, covert the recipe name to lowercase and user serach to lowecase (this way it can match and come back as true)
         $matches[] = $recipe; //add the match to the new array
     } 
  } 
 }
 
+
+//AI: ChatGPT (GPT-6), 2026-10-14
+//Helped connect search results to the main list
+if ($name !== ''){
+    $display_recipes = $matches; //if the search is not empty display the matching recipe
+} else{
+    $display_recipes = $recipes; //else display all the recipes
+}
 ?>
 
 <!DOCTYPE html>
@@ -82,7 +81,7 @@ if ($name !== ''){ //if the input is NOT empty
     </style>
 </head>
 <body>
-    <h1>W2</h1>
+    <h1>W3</h1>
 
     <!-- search -->
     <form action='index.php' method="get">
@@ -90,22 +89,32 @@ if ($name !== ''){ //if the input is NOT empty
         <button type="submit">Search!</button>
     </form>
 
-
-    <!-- error display -->
+   <!-- error display -->
     <?php foreach($errors as $error): ?>
        <p class="error"><?= e($error) ?></p>  <!-- '?=' shortcut for echo -->
-    <?php endforeach; ?>
+    <?php endforeach; ?>    
 
     <!-- user search display -->
     <?php if ($name !==''): ?> <!--if the input is not empty display the following-->
         <p class="success">You searched for <?= e($name)?> </p> 
     <?php endif; ?>
 
-    <!-- matching recipes display -->
-    <?php foreach($matches as $recipe): ?> <!--loop(':' = open a loop) through matches array -->
-        <p><?= e($recipe) ?></p> <!--paragraph created and echos the recipe after it is safely converted(e)-->
+    <h2>Recipes</h2>
+
+    <!--
+    //AI: ChatGPT (GPT-6), 2026-10-14
+    //Helped setting up foreach loop to correctly show recipe title and description 
+    -->
+    <?php foreach ($display_recipes as $recipe): ?>
+        <h3><?= e($recipe['title']) ?></h3>
+        <p><?= e($recipe['description']) ?? ''?></p> <!--If the value exists ?? and isn't null '', use it -->
     <?php endforeach; ?>
 
+ 
+
+
+
+  
 
     <!-- AI: ChatGPT (GPT-6), 2026-10-07.
      Helped implement a conditional to display a message when no matching recipes are found. -->
