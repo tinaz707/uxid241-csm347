@@ -10,8 +10,6 @@ $result = mysqli_query($conn, $sql); //run the SQL using db connection
 $recipes = mysqli_fetch_all($result, MYSQLI_ASSOC); // get the rows and puts them in recipes , this defines recipes
 
 
-
-
 $search = trim_value('name'); //defines user input
 $errors =[]; //array for erroys
 $matches =[]; //array for matches
