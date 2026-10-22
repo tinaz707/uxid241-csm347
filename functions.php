@@ -10,4 +10,15 @@ function e(string $key): string {
     return htmlspecialchars($key, ENT_QUOTES, 'UTF-8'); 
 } //this function is to safely display text
 
+function recipe_card(array $recipe):string{ //recipe car will give one recipe an thats an array
+     return '<div class="recipe-card">
+                <img src="assets/images-renamed/ancho-orange-chicken/dish.jpg" alt="completed recipe image">
+            
+                    <div class="card-description">
+                        <h2>'.e($recipe["title"]).'</h2>  
+                        <p>'.e($recipe["subtitle"]).'</p>
+                    </div>        
+            </div>';
+} //AI to help combine html with php --> remeber to connect the html with the php you have to use a dot!! 
+
 ?>

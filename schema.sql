@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 21, 2026 at 07:07 PM
+-- Generation Time: Oct 22, 2026 at 04:22 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.4.26
 
@@ -43,7 +43,10 @@ CREATE TABLE `recipes` (
 INSERT INTO `recipes` (`id`, `title`, `subtitle`, `created_at`) VALUES
 (1, 'Ancho-Orange Chicken', 'with Kale Rice & Roasted Carrots\r\n', '2026-10-14 22:59:17'),
 (2, 'Beef Medallions & Mushroom Sauce\r\n', 'with Mashed Potatoes\r\n', '2026-10-14 22:59:17'),
-(3, 'Broccoli & Basil Pesto Sandwiches\r\n', 'with Romaine & Citrus Salad\r\n', '2026-10-14 22:59:54');
+(3, 'Broccoli & Basil Pesto Sandwiches\r\n', 'with Romaine & Citrus Salad\r\n', '2026-10-14 22:59:54'),
+(4, 'Mushroom & Potato Tacos', 'with Romaine & Orange Salad', '2026-10-22 02:18:34'),
+(5, 'Roasted Broccoli & Fregola Sarda Salad\r\n', 'with Hard-Boiled Eggs & Tahini Dressing\r\n', '2026-10-22 02:18:34'),
+(10, 'Shiitake & Hoisin Beef Burgers\r\n', 'with Miso Mayonnaise & Roasted Sweet Potatoes\r\n', '2026-10-22 02:20:15');
 
 --
 -- Indexes for dumped tables
@@ -63,7 +66,7 @@ ALTER TABLE `recipes`
 -- AUTO_INCREMENT for table `recipes`
 --
 ALTER TABLE `recipes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

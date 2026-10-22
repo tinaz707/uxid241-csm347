@@ -15,28 +15,29 @@ $errors =[]; //array for erroys
 $matches =[]; //array for matches
 
 
-//ERROR FUNCTION
+
+
+//ERROR FUNCTION ==============================================
 if(isset($_GET['name'])){ //if the name field was submitted
-    $search = $_GET['name'];{       //get it
-        if ($search === ''){
+        if ($search === ''){ //if its empty then its an error
             $errors[] = 'Search can not be empty!';
         }
-    }
-}
+ }
 
-//display match
+//=============================================================
 
 
+
+//DEFINE MATCHES ==============================================
 //look through the database and take the recipes as one
-if ($search !== ''){ //if the unput is not empty
+if ($search !== '' ){ //if the unput is not empty
     foreach ($recipes as $recipe){ //loop through recipes and run each one as recipe(a single one)
         if (str_contains(strtolower($recipe['title']),strtolower($search))){ //if string contains the search term, covert the recipe name to lowercase and user serach to lowecase (this way it can match and come back as true)
              $matches[] = $recipe;//add the match to the new array
         }
     }
 }
-
-//if its a match -> display ONLy the match
+//=============================================================
 
 
 ?>
@@ -68,11 +69,11 @@ if ($search !== ''){ //if the unput is not empty
         </form>
     </div>
 
-     <!-- ERROR DISPLAY=============================================================  -->
+     <!-- ERROR DISPLAY==============================================  -->
     <?php foreach($errors as $error): ?> 
        <p class="error"><?= e($error) ?></p>  <!-- '?=' shortcut for echo -->
     <?php endforeach; ?>
-    <!--============================================================================  -->
+    <!--=============================================================  -->
 
 
     <div class="filter">
@@ -89,23 +90,30 @@ if ($search !== ''){ //if the unput is not empty
         </div>
     </div>
 
-    <!-- Used ai to troubleshoot foreach, was using ';' rather than : -->
+    <!-- NO MATCH====================================================  -->
+    <?php if ( $search !== '' && empty($matches)): ?> <!--if the input has no match with anything in the array-->
+        <p>Sorry we don't have <?= e($search)?>!</p> <!--display this-->
+    <?php endif; ?>
+    <!--=============================================================  -->
+
+    <!-- Used ai to troubleshoot foreach loop, was using ';' rather than : -->
     <div class="recipe-board">
-        
-        <?php foreach ($recipes as $recipe): ?>   <!-- takes the recipe and puts each as it's own card -->
-            <div class="recipe-card">
-                <img src="assets/images-renamed/ancho-orange-chicken/dish.jpg" alt="completed recipe image">
-            
-                    <div class="card-description">
-                        <h2><?=e($recipe['title']);?></h2>
-                        <p><?=e($recipe['subtitle']);?></p>
-                    </div>        
-            </div>
-        <?php endforeach; ?>
+    <!-- RECIPE CARD DISPLAY====================================================  -->
+        <?php  //if the matches is empty show the cards for all , else show the matches
+            if($search === ''){ //if the name field is empty show all the recipes
+                foreach ($recipes as $recipe){
+                echo recipe_card($recipe); //uses the function to display all 
+                }
+            } else {
+                foreach ($matches as $match){ //take the matches and make each item in the array as one 
+                echo recipe_card($match); //uses the function to display matches
+                }
+            }
+        ?>
+    <!--=============================================================  -->
 
     </div>
 
-   <!--if the match = recipe display it-->
 
     
 </main>
