@@ -8,6 +8,7 @@ First download the project code and place the folder into your local server's 'h
 Overall: Used to help understand some of the concepts such as the recipe-search loop using foreach, str_contains(), and strtolower() as well as using it for guidance on how to implement the concepts. Using it to walk me through the process of setting up php.
 
 ChatGPT-6:
+//Helped me with figuring out how to upload data into the database
 //Helped develop logic for my $recipes loop and to be able to find matching recipes in an array
 //Helped implement a conditional to display a message when no matching recipes are found
 //Helped setting up foreach loop to correctly show recipe title and description 

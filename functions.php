@@ -21,4 +21,27 @@ function recipe_card(array $recipe):string{ //recipe car will give one recipe an
             </div>';
 } //AI to help combine html with php --> remeber to connect the html with the php you have to use a dot!! 
 
+
+//function will need a list of recipes + search to give back a list of matches
+
+
+//DEFINE MATCHES ==============================================
+//the function search_match will need an array/list of the recipes AND the search result, and bring that back in a array/list
+function search_match(array $recipes, string $search): array{
+
+    $matches = [];
+
+    if ($search !== '' ){ //if the input is not empty
+    foreach ($recipes as $recipe){ //loop through recipes and run each one as recipe(a single one)
+        if (str_contains(strtolower($recipe['title']),strtolower($search))){ //if string contains the search term, covert the recipe name to lowercase and user serach to lowecase (this way it can match and come back as true)
+             $matches[] = $recipe;//add the match to the new array
+        }
+    }
+    
+    return $matches;
+
+}
+}
+
+//=============================================================
 ?>

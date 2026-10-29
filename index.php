@@ -7,13 +7,12 @@ require_once 'functions.php';
 //from lecture 
 $sql = 'SELECT * FROM recipes'; //Select=recieve data | *=select all columns | FROM...=gets data from table
 $result = mysqli_query($conn, $sql); //run the SQL using db connection
-$recipes = mysqli_fetch_all($result, MYSQLI_ASSOC); // get the rows and puts them in recipes , this defines recipes
+$recipes = mysqli_fetch_all($result, MYSQLI_ASSOC); // get the rows and puts them in recipes , this defines recipes (if i delete this the recipe cards are gone)
 
 
 $search = trim_value('name'); //defines user input
-$errors =[]; //array for erroys
+$errors =[]; //array for errors
 $matches =[]; //array for matches
-
 
 
 
@@ -23,21 +22,10 @@ if(isset($_GET['name'])){ //if the name field was submitted
             $errors[] = 'Search can not be empty!';
         }
  }
-
 //=============================================================
 
+search_match($recipes, $search); //give back the match and the
 
-
-//DEFINE MATCHES ==============================================
-//look through the database and take the recipes as one
-if ($search !== '' ){ //if the unput is not empty
-    foreach ($recipes as $recipe){ //loop through recipes and run each one as recipe(a single one)
-        if (str_contains(strtolower($recipe['title']),strtolower($search))){ //if string contains the search term, covert the recipe name to lowercase and user serach to lowecase (this way it can match and come back as true)
-             $matches[] = $recipe;//add the match to the new array
-        }
-    }
-}
-//=============================================================
 
 
 ?>
