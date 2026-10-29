@@ -11,22 +11,24 @@ $recipes = mysqli_fetch_all($result, MYSQLI_ASSOC); // get the rows and puts the
 
 
 $search = trim_value('name'); //defines user input
-$errors =[]; //array for errors
-$matches =[]; //array for matches
+$errors =search_error($search); //array for errors
+$matches = search_match($recipes, $search); //so matches = the return of the function which is what finds the match
 
+//Category get
+// $category_selected = [];
+
+// if(isset($_GET['category'])){ //if you click..(does click work here??),,
+//    return '<button class="filter-choices-button">Chicken</button>'; //this doesn't even make sense
+//  }
 
 
 //ERROR FUNCTION ==============================================
-if(isset($_GET['name'])){ //if the name field was submitted
-        if ($search === ''){ //if its empty then its an error
-            $errors[] = 'Search can not be empty!';
-        }
- }
+// if(isset($_GET['name'])){ //if the name field was submitted
+//         if ($search === ''){ //if its empty then its an error
+//             $errors[] = 'Search can not be empty!';
+//         }
+//  } //defines errors
 //=============================================================
-
-search_match($recipes, $search); //give back the match and the
-
-
 
 ?>
 
@@ -60,15 +62,13 @@ search_match($recipes, $search); //give back the match and the
      <!-- ERROR DISPLAY==============================================  -->
     <?php foreach($errors as $error): ?> 
        <p class="error"><?= e($error) ?></p>  <!-- '?=' shortcut for echo -->
-    <?php endforeach; ?>
+    <?php endforeach;?>
     <!--=============================================================  -->
-
 
     <div class="filter">
         <p>Filters:</p>
         <div class="filter-choices">
-                
-            <button class="filter-choices-button">Chicken</button>
+            <button name="category" class="filter-choices-button">Chicken</button>
             <button class="filter-choices-button">Beef</button>
             <button class="filter-choices-button">Vegetarian </button>
             <button class="filter-choices-button">Seafood</button>
@@ -80,7 +80,7 @@ search_match($recipes, $search); //give back the match and the
 
     <!-- NO MATCH====================================================  -->
     <?php if ( $search !== '' && empty($matches)): ?> <!--if the input has no match with anything in the array-->
-        <p>Sorry we don't have <?= e($search)?>!</p> <!--display this-->
+        <p>Sorry we don't have<?= e($search)?>!</p> <!--display this-->
     <?php endif; ?>
     <!--=============================================================  -->
 

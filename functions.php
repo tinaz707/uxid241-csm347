@@ -19,14 +19,12 @@ function recipe_card(array $recipe):string{ //recipe car will give one recipe an
                         <p>'.e($recipe["subtitle"]).'</p>
                     </div>        
             </div>';
-} //AI to help combine html with php --> remeber to connect the html with the php you have to use a dot!! 
+} //AI to help combine html with php --> remember to connect the html with the php you have to use a dot!! 
 
 
-//function will need a list of recipes + search to give back a list of matches
 
-
-//DEFINE MATCHES ==============================================
-//the function search_match will need an array/list of the recipes AND the search result, and bring that back in a array/list
+// DEFINE MATCHES ==============================================
+// the function search_match will need an array/list of the recipes AND the search result, and bring that back in a array/list
 function search_match(array $recipes, string $search): array{
 
     $matches = [];
@@ -36,12 +34,44 @@ function search_match(array $recipes, string $search): array{
         if (str_contains(strtolower($recipe['title']),strtolower($search))){ //if string contains the search term, covert the recipe name to lowercase and user serach to lowecase (this way it can match and come back as true)
              $matches[] = $recipe;//add the match to the new array
         }
+        }
     }
     
     return $matches;
-
-}
 }
 
-//=============================================================
+//DEFINE ERRORS
+function search_error (string $search): array{ //define blank search error
+    
+    $errors=[];    
+
+    if(isset($_GET['name'])){ //if the name field was submitted
+        if ($search === ''){ //if its empty then its an error
+            $errors[] = 'Search can not be empty!';
+        }
+    }
+
+    return $errors;
+}
+// =============================================================
+
+//RECIPE CARD DISPLAY
+
+// function card_display(array $recipes): array{
+
+//     $card_display = [];
+//         if($search === ''){ //if the name field is empty show all the recipes
+//                 foreach ($recipes as $recipe){
+//                 echo recipe_card($recipe); //uses the function to display all 
+//                 }
+//             } else {
+//                 foreach ($matches as $match){ //take the matches and make each item in the array as one 
+//                 echo recipe_card($match); //uses the function to display matches
+//                 }
+//             }
+
+//         return $card_display;
+// }
+
+
 ?>
