@@ -12,7 +12,7 @@ function e(string $key): string {
 
 function recipe_card(array $recipe):string{ //recipe car will give one recipe an thats an array
      return '<div class="recipe-card">
-                <img src="assets/images-renamed/ancho-orange-chicken/dish.jpg" alt="completed recipe image">
+                <img src="'.e($recipe["main_image"]).'" alt="completed recipe image">
             
                     <div class="card-description">
                         <h2>'.e($recipe["title"]).'</h2>  
@@ -50,7 +50,7 @@ function search_error (string $search): array{ //define blank search error
             $errors[] = 'Search can not be empty!';
         }
     }
-
+    
     return $errors;
 }
 // =============================================================
