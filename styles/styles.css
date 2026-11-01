@@ -142,7 +142,7 @@ body{
 
                 .filter-choices-button{
                     cursor: pointer;
-                    padding: 10px;
+                    padding: 25px;
                     border-radius: var(--box-corner);
                     background-color: transparent;
                     border: 1px solid var(--dark-brown);
@@ -159,6 +159,14 @@ body{
                         border: 1px solid var(--primary);
 
                     }
+                    
+                    .filter-choices-button:active{
+                        background-color: var(--dark-brown);
+                        color: var(--primary);
+                        border: 1px solid var(--primary);
+
+                    }
+                    
             }
         }
 
@@ -212,5 +220,7 @@ body{
     }
 
 
+
+    /*Recipe page*/
 
 }

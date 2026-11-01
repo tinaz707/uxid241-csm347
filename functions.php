@@ -19,18 +19,20 @@ function recipe_card(array $recipe):string{ //recipe car will give one recipe an
                         <p>'.e($recipe["subtitle"]).'</p>
                     </div>        
             </div>';
-} //AI to help combine html with php --> remember to connect the html with the php you have to use a dot!! 
+} 
+//AI to help combine html with php --> remember to connect the html with the php you have to use a dot!! 
+//AI to troubleshoot error with the main_image --> forgot to add the '.' at the end
 
 
 
 // DEFINE MATCHES ==============================================
 // the function search_match will need an array/list of the recipes AND the search result, and bring that back in a array/list
-function search_match(array $recipes, string $search): array{
+function search_match(array $recipes, string $search): array{ //passing the recipes and user input
 
-    $matches = [];
-
+    $matches = []; 
+//Ai helped troublshoot when it only showed one recipe for the filter..I had an extra bracket ($recipes as $recipe){{ ....
     if ($search !== '' ){ //if the input is not empty
-    foreach ($recipes as $recipe){ //loop through recipes and run each one as recipe(a single one)
+    foreach ($recipes as $recipe){ //loop through recipes and run each one as recipe(a single one) one at a time; 
         if (str_contains(strtolower($recipe['title']),strtolower($search))){ //if string contains the search term, covert the recipe name to lowercase and user serach to lowecase (this way it can match and come back as true)
              $matches[] = $recipe;//add the match to the new array
         }
@@ -39,6 +41,26 @@ function search_match(array $recipes, string $search): array{
     
     return $matches;
 }
+
+//CATEGORIES
+function categories_button(array $recipes, string $categories): array{
+       $category_matches = [];
+       
+
+    foreach ($recipes as $recipe){
+        
+        if ($recipe['categories_id'] === $categories){ //if the recipe id is the same as the category selected
+            $category_matches[] = $recipe;
+        }
+    }
+
+    return $category_matches; 
+    
+
+    
+}
+
+
 
 //DEFINE ERRORS
 function search_error (string $search): array{ //define blank search error

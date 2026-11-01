@@ -9,17 +9,19 @@ $sql = 'SELECT * FROM recipes'; //Select=recieve data | *=select all columns | F
 $result = mysqli_query($conn, $sql); //run the SQL using db connection
 $recipes = mysqli_fetch_all($result, MYSQLI_ASSOC); // get the rows and puts them in recipes , this defines recipes (if i delete this the recipe cards are gone)
 
-
 $search = trim_value('name'); //defines user input
 $errors =search_error($search); //array for errors
 $matches = search_match($recipes, $search); //so matches = the return of the function which is what finds the match
 
+$categories = trim_value('category'); //php reads top to bottom so this has to be first
+$category_matches = categories_button($recipes, $categories);
+
+
+
 //Category get
 // $category_selected = [];
 
-// if(isset($_GET['category'])){ //if you click..(does click work here??),,
-//    return '<button class="filter-choices-button">Chicken</button>'; //this doesn't even make sense
-//  }
+
 
 
 //ERROR FUNCTION ==============================================
@@ -67,14 +69,39 @@ $matches = search_match($recipes, $search); //so matches = the return of the fun
 
     <div class="filter">
         <p>Filters:</p>
-        <div class="filter-choices">
-            <button name="category" class="filter-choices-button">Chicken</button>
-            <button class="filter-choices-button">Beef</button>
-            <button class="filter-choices-button">Vegetarian </button>
-            <button class="filter-choices-button">Seafood</button>
-            <button class="filter-choices-button">Pork</button>
-            <button class="filter-choices-button">Turkey</button>
+    <!--AI to gelp fix my button formatiing...was missing a form! without the form(how _GET gets the info) the "submit" means nothing-->
+        <div>
+            <form action="index.php" method="get" class="filter-choices">
+                <button type="submit" name="category" value="1" class="filter-choices-button <?= $categories === '1' ? 'active' : '' ?>">
+                    Chicken
+                </button>
 
+                <button type="submit" name="category" value="2" class="filter-choices-button">
+                    Beef
+                </button>
+
+                
+                <button type="submit" name="category" value="3" class="filter-choices-button">
+                    Vegetarian
+                </button>
+                
+                
+                <button type="submit" name="category" value="4" class="filter-choices-button">
+                    Seafood
+                </button>
+                
+                
+                <button type="submit" name="category" value="5" class="filter-choices-button">
+                    Pork
+                </button>
+                
+                
+                <button type="submit" name="category" value="6" class="filter-choices-button">
+                    Turkey
+                </button>
+
+            </form>
+    
         </div>
     </div>
 
@@ -88,13 +115,17 @@ $matches = search_match($recipes, $search); //so matches = the return of the fun
     <div class="recipe-board">
     <!-- RECIPE CARD DISPLAY====================================================  -->
         <?php  //if the matches is empty show the cards for all , else show the matches
-            if($search === ''){ //if the name field is empty show all the recipes
-                foreach ($recipes as $recipe){
-                echo recipe_card($recipe); //uses the function to display all 
-                }
-            } else {
+            if ($search !== ''){ //if the search is not empty...
                 foreach ($matches as $match){ //take the matches and make each item in the array as one 
                 echo recipe_card($match); //uses the function to display matches
+                }
+            } elseif ($categories !== ''){ //if category is not empty..
+                foreach($category_matches as $category_match){
+                    echo recipe_card($category_match);
+                }
+            } else{ //if search is empty and no button is clicked
+                foreach ($recipes as $recipe){
+                echo recipe_card($recipe); //uses the function to display all 
                 }
             }
         ?>
@@ -106,5 +137,6 @@ $matches = search_match($recipes, $search); //so matches = the return of the fun
     
 </main>
 
+<script src="main.js"></script>
 </body>
 </html>
