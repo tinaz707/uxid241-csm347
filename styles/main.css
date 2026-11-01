@@ -160,12 +160,12 @@ body{
 
                     }
                     
-                    /* .filter-choices-button:active{
+                    .filter-choices-button:active{
                         background-color: var(--dark-brown);
                         color: var(--primary);
                         border: 1px solid var(--primary);
 
-                    } */
+                    }
                     
             }
         }
