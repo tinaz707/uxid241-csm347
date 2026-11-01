@@ -21,9 +21,6 @@ $category_matches = categories_button($recipes, $categories);
 //Category get
 // $category_selected = [];
 
-
-
-
 //ERROR FUNCTION ==============================================
 // if(isset($_GET['name'])){ //if the name field was submitted
 //         if ($search === ''){ //if its empty then its an error
@@ -42,7 +39,7 @@ $category_matches = categories_button($recipes, $categories);
     <title>Homepage</title>
     
     <link rel="stylesheet" href="styles/normalize.css">
-    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/main.css"> <!--renamed to main bc xxamp wasn't loading it when it was called styles???-->
 </head>
 <body>
     
@@ -137,6 +134,5 @@ $category_matches = categories_button($recipes, $categories);
     
 </main>
 
-<script src="main.js"></script>
 </body>
 </html>

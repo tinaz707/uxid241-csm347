@@ -32,7 +32,7 @@
 }
 body{
 
-    font-family: 'IstokWeb', sans-serif;
+    font-family: 'Istok Web', sans-serif;
     
     line-height: var(--line-height);
     
@@ -153,6 +153,9 @@ body{
 
                     transition: 0.3s ease;
                 }
+
+
+
                 .filter-choices-button:hover{
                         background-color: var(--dark-brown);
                         color: var(--primary);
@@ -160,15 +163,17 @@ body{
 
                     }
                     
-                    .filter-choices-button:active{
-                        background-color: var(--dark-brown);
-                        color: var(--primary);
-                        border: 1px solid var(--primary);
+                    .filter-choices-button .active{
+                                    background-color: var(--dark-brown);
+                                    color: var(--primary);
+                                    border: 1px solid var(--primary);
 
-                    }
-                    
+                                }
+
             }
         }
+
+      
 
          /*the grid for all recipes*/
         .recipe-board{
@@ -219,8 +224,7 @@ body{
 
     }
 
-
-
     /*Recipe page*/
 
 }
+
