@@ -69,7 +69,7 @@ $category_matches = categories_button($recipes, $categories);
     <!--AI to gelp fix my button formatiing...was missing a form! without the form(how _GET gets the info) the "submit" means nothing-->
         <div>
             <form action="index.php" method="get" class="filter-choices">
-                <button type="submit" name="category" value="1" class="filter-choices-button <?= $categories === '1' ? 'active' : '' ?>">
+                <button type="submit" name="category" value="1" class="filter-choices-button <?= $categories === '1' ? 'active' : '' ?>"> <!--if categories = to '1' echo out active, otherwise echo out nothing/empty ''-->
                     Chicken
                 </button>
 
