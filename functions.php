@@ -30,7 +30,7 @@ function recipe_card(array $recipe):string{ //recipe car will give one recipe an
 function search_match(array $recipes, string $search): array{ //passing the recipes and user input
 
     $matches = []; 
-//Ai helped troublshoot when it only showed one recipe for the filter..I had an extra bracket ($recipes as $recipe){{ ....
+//Ai helped troubleshoot when it only showed one recipe for the filter..I had an extra bracket ($recipes as $recipe){{ ....
     if ($search !== '' ){ //if the input is not empty
     foreach ($recipes as $recipe){ //loop through recipes and run each one as recipe(a single one) one at a time; 
         if (str_contains(strtolower($recipe['title']),strtolower($search))){ //if string contains the search term, covert the recipe name to lowercase and user serach to lowecase (this way it can match and come back as true)

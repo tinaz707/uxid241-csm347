@@ -43,10 +43,9 @@ $category_matches = categories_button($recipes, $categories);
 </head>
 <body>
     
-<div class="hero">
-   <img class="hero-image" src="assets/hero_2x.png" alt="zoomed picture of person in kitchen">
-   <img class="logo-image" src="assets/logo_2x.png" alt="logo for YUM!">
-</div>
+<?php
+ include 'includes/header.php';
+?>
 
 <main>
     <div class="search-bar">
@@ -68,32 +67,32 @@ $category_matches = categories_button($recipes, $categories);
         <p>Filters:</p>
     <!--AI to gelp fix my button formatiing...was missing a form! without the form(how _GET gets the info) the "submit" means nothing-->
         <div>
-            <form action="index.php" method="get" class="filter-choices">
-                <button type="submit" name="category" value="1" class="filter-choices-button <?= $categories === '1' ? 'active' : '' ?>"> <!--if categories = to '1' echo out active, otherwise echo out nothing/empty ''-->
+            <form action="index.php" method="get" class="filter-choices"> <!--VALUE IS DECIDING WHAT THE NEXT CLICK DOES - ?=(echo the result) is $categories === '1'( is chicken ALREADY selected) then '?(if true)' do nothing when clicked again(turn filter off) ': (if false/other wise) turn it back on(click it again)-->
+                <button type="submit" name="category" value="<?= $categories === '1' ? '' : '1' ?>" class="filter-choices-button <?= $categories === '1' ? 'active' : '' ?>"> <!--AI: helped to figure out how to add a class: if categories = to '1' echo out active, otherwise echo out nothing/empty ''-->
                     Chicken
                 </button>
 
-                <button type="submit" name="category" value="2" class="filter-choices-button">
+                <button type="submit" name="category" value="<?= $categories === '2' ? '' : '2' ?>" class="filter-choices-button <?= $categories === '2' ? 'active' : '' ?>">
                     Beef
                 </button>
 
                 
-                <button type="submit" name="category" value="3" class="filter-choices-button">
+                <button type="submit" name="category" value="<?= $categories === '3' ? '' : '3' ?>" class="filter-choices-button <?= $categories === '3' ? 'active' : '' ?>">
                     Vegetarian
                 </button>
                 
                 
-                <button type="submit" name="category" value="4" class="filter-choices-button">
+                <button type="submit" name="category" value="<?= $categories === '4' ? '' : '4' ?>" class="filter-choices-button <?= $categories === '4' ? 'active' : '' ?>">
                     Seafood
                 </button>
                 
                 
-                <button type="submit" name="category" value="5" class="filter-choices-button">
+               <button type="submit" name="category" value="<?= $categories === '5' ? '' : '5' ?>" class="filter-choices-button <?= $categories === '5' ? 'active' : '' ?>">
                     Pork
                 </button>
                 
                 
-                <button type="submit" name="category" value="6" class="filter-choices-button">
+                <button type="submit" name="category" value="<?= $categories === '6' ? '' : '6' ?>" class="filter-choices-button <?= $categories === '6' ? 'active' : '' ?>">
                     Turkey
                 </button>
 

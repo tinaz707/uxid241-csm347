@@ -14,4 +14,9 @@ ChatGPT-6:
 //Helped setting up foreach loop to correctly show recipe title and description 
 //Helped connect search results to the main recipe list
 //Helped understand any errors that came along the process
-
+//Help fix my button formatting...was missing a form! to get the $_GET
+//Helped figure out how to add a class when button was clicked <?= $categories === '1' ? 'active' : '' ?>
+    //Also used this logic to figure out how to have the button be selected and unselected and used AI to verify logic was correct
+//Helped troubleshoot my categories function when I came across errors
+//Help troubleshoot my recipe_card issue with the main_image; forgot to add a '.' at the end of '.e($recipe["main_image"]).' 
+//Used to fix responsive CSS styling 

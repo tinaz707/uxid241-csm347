@@ -36,10 +36,61 @@ body{
     
     line-height: var(--line-height);
     
-    .hero{
+    header{
 
         position: relative;
-        
+
+
+        nav{
+            position: absolute;
+            z-index: 3;
+            width: 100vw;
+            background-color: var(--dark-brown);
+            padding: 5px 80px;
+            
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-end;
+         
+            .menu{
+               display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 20px;
+
+                li{
+                    list-style: none;
+                    text-transform: uppercase;
+                    font-weight: 700;
+                    font-size: var(--label-text);
+                    color: var(--primary-light);
+                    cursor: pointer;
+                    user-select: none;
+
+                    padding: 15px 20px;
+                  
+                }
+
+                li:hover{
+                    background-color: var(--primary-light);
+                    color: var(--dark-brown);
+                    
+                }
+            }
+
+            .menu-icon{
+                display: none;
+                
+                img{
+                    height: 30px;
+                }
+            }
+
+            .hide{
+                display: none;
+            }
+        }
 
         /*EDITS FOR LATER MAKE THE HERO IMAGE TAKE UP LESS SPACE*/
         .hero-image{
@@ -73,7 +124,7 @@ body{
         position: relative; /*helps main flow w layering*/
         z-index: 1; 
         
-        margin-top: -50px;
+        margin-top: -90px;
 
         padding: 0 120px;
         
@@ -83,6 +134,8 @@ body{
         .search-bar{
             
             margin-top: 60px;
+            width: 100%;
+            max-width: 700px;
 
             #search-bar-style{
                 display: flex;
@@ -95,7 +148,7 @@ body{
             }
 
             #search-bar-style input{
-                width: 633px;
+                flex: 1; /*Take up the available leftover space, and shrink when there isn't enough room*/
                 border: none;
                 background-color: transparent;
                 padding: 14px 20px;
@@ -117,8 +170,8 @@ body{
                 background: url(../assets/search_icon.svg) center no-repeat;
                 border: 1px solid var(--dark-brown);
                 border-radius: var(--box-corner);
-                width: 47px;
-                height: 47px;
+                min-width: 47px;
+                min-height: 47px;
                 
                 cursor: pointer;
             }
@@ -129,7 +182,8 @@ body{
             display: flex;
             flex-direction: row;
             gap: var(--small-gap); 
-            
+            flex-wrap: wrap;
+
             p{
                 font-style: italic;
                 user-select: none;
@@ -139,6 +193,8 @@ body{
                 display: flex;
                 flex-direction: row;
                 gap: var(--small-gap);
+                flex-wrap: wrap;
+                justify-content: center;
 
                 .filter-choices-button{
                     cursor: pointer;
@@ -147,7 +203,7 @@ body{
                     background-color: transparent;
                     border: 1px solid var(--dark-brown);
                     color: var(--dark-brown);
-                    width: 140px;
+                    width: 160px;
 
                     text-transform: uppercase;
 
@@ -157,13 +213,16 @@ body{
                         background-color: var(--dark-brown);
                         color: var(--primary);
                         border: 1px solid var(--primary);
+                        font-weight: 700;
 
                     }
                     
-                    .filter-choices-button:active{
+                    .filter-choices-button.active{
                         background-color: var(--dark-brown);
                         color: var(--primary);
                         border: 1px solid var(--primary);
+                        font-weight: 700;
+
 
                     }
                     
@@ -193,6 +252,10 @@ body{
                 border: 1px solid var(--black);
                 border-radius: var(--box-corner);
                 background-color: var(--primary-light);
+                box-shadow: 0 4px 10px 0  rgba(38, 16, 8, 0.15);
+                  transition: 0.3s ease;
+
+
 
                 img{
                     width: 100%;
@@ -203,7 +266,7 @@ body{
 
                 .card-description{
                         padding: 20px;
-
+                        user-select: none;
                         h2{
                             font-size: var(--label-text);
                             margin: 0;
@@ -214,7 +277,12 @@ body{
                         }                
                 }
                 
-            }
+            }    
+            .recipe-card:hover {
+                    cursor: pointer;
+                    transform: translateY(-0.8px);
+                  
+                }
         }
 
     }
@@ -222,5 +290,56 @@ body{
 
 
     /*Recipe page*/
+
+}
+
+@media screen and (max-width: 1024px) {
+  
+    body{
+
+
+
+        header{
+            nav{
+                padding: 5px 20px ;
+                .menu {
+                   flex-direction: column;
+
+                    ul{
+                        flex-direction: column;
+                    }
+                    
+                }
+                
+                .menu-icon {
+                    display:block;
+                    padding: 15px 20px;
+
+                    .open-menu{
+                        img{
+                            display: block;
+                        }
+                    }
+                }
+
+            }
+
+            .hero-image{
+                width: 150%;
+            }
+        }
+
+        main{
+            margin-top: -50px;
+
+            .search-bar{
+                #search-bar-style input{
+
+                }
+            }
+        }
+
+
+}
 
 }
