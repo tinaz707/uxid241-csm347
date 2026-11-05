@@ -1,5 +1,5 @@
 # uxid241-csm347
-IDM 232 - An Online Cookbook where you can search, add, edit and delete recipes.
+IDM 232 - An Online Cookbook where you can search, add, edit and delete recipes. This project is build using PHP, HTML, and CSS
 
 # How do I run this project locally?
 First download the project code and place the folder into your local server's 'htdocs' folder. To open it, run either XAMPP or MAMP and start Apache and MySQL. Create a new database for this project and import uxid241.sql into the database to create the required tables and data. Copy config.example.php and change it to config.php. Open the config.php and enter the credentials of your local database. Finally open the project through localhost in your web browser.
@@ -20,3 +20,6 @@ ChatGPT-6:
 //Helped troubleshoot my categories function when I came across errors
 //Help troubleshoot my recipe_card issue with the main_image; forgot to add a '.' at the end of '.e($recipe["main_image"]).' 
 //Used to fix responsive CSS styling 
+//Help to Verify what steps to take for buidling out the log in, helped troubleshoot errors and remove redundent code I had
+//Help to figure out changing login to logout in the header once user was logged in
+//

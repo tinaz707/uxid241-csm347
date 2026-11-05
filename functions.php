@@ -1,6 +1,10 @@
 <?php
 declare(strict_types=1);
 
+function trim_post(string $key): string { 
+    return trim($_POST[$key] ?? '');
+}
+
 
 function trim_value(string $key): string { //function trim_value gets a string and returns a string (": string")
     return trim($_GET[$key] ?? ''); //get the data and if it exists and isn't null(??) give the value or give an empty string('')
