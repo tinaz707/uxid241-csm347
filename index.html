@@ -13,8 +13,12 @@
     <header>
         <nav>
             <ul class="menu">
-                <li class="menu-item">Recipes</li>
-                <li class="menu-item">Login</li>
+                <li class="menu-item">
+                    <a class="menu-item-link" href="index.php">Recipes</a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-item-link" href="login.php">Login</a>
+                </li>
             </ul>
 
              <div class="menu-icon">
@@ -28,61 +32,28 @@
             </div>
         </nav>
 
-        <div class="hero">
-            <img class="hero-image" src="assets/hero_2x.png" alt="">
-            <img class="logo-image" src="assets/logo_2x.png" alt="logo for YUM!">
-        </div>
-
+   
 
     </header>    
 
 <main>
 
-    
-    <div class="search-bar">
-        <form id="search-bar-style" action='index.php' method="get">
-            <input id="search-input" placeholder="Search for a yummy recipe!" type="text" name="name" />
-            <button type="submit" aria-label="Search">
-                
-            </button>
+    <main class="login-page">
+        <div class="login">
+        <h2>Log In</h2>
+        <form id="login-style" action='login.php' method="post">
+            <input class="login-input" placeholder="Username*" type="text" name="user" required />
+            <input class="login-input" placeholder="Email*" type="text" name="email" required/>
+            <input class="login-input" placeholder="Password*" type="text" name="password" required/>
+            <button type="submit" aria-label="submit">Submit</button>
         </form>
     </div>
-
-    <div class="filter">
-        <p>Filters:</p>
-        <div class="filter-choices">
-                
-            <button class="filter-choices-button">Chicken</button>
-            <button class="filter-choices-button">Beef</button>
-            <button class="filter-choices-button">Vegetarian </button>
-            <button class="filter-choices-button">Seafood</button>
-            <button class="filter-choices-button">Pork</button>
-            <button class="filter-choices-button">Turkey</button>
-
-        </div>
-    </div>
-
-    <div class="recipe-board">
-        <div class="recipe-card">
-            
-            <img src="assets/images-renamed/ancho-orange-chicken/dish.jpg" alt="">
-            
-
-                <div class="card-description">
-                    <h2>Ancho Orange Chicken</h2>
-                    <p>With Kale Rice & Roasted Carrots</p>
-                </div>
-        
-
-
-        </div>
-
-    </div>
+    </main>
+    
 
     
 </main>
 
-<script src="scripts/main.js"></script>
 
 </body>
 </html>

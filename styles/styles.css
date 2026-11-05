@@ -33,9 +33,17 @@
 body{
 
     font-family: 'Istok Web', sans-serif;
-    
     line-height: var(--line-height);
     
+
+    .menu{
+        .menu-item{
+            .menu-item-link{
+                color: var();
+            }
+        }
+    }
+
     .hero{
 
         position: relative;

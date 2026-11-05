@@ -12,7 +12,7 @@
 
 
 --line-height: 1.5;
---letter-space: 1.5px;
+--letter-space: .5px;
 
 --box-corner: 45px;
 --large-gap: 60px;
@@ -33,7 +33,6 @@
 body{
 
     font-family: 'IstokWeb', sans-serif;
-    
     line-height: var(--line-height);
     
     header{
@@ -59,24 +58,31 @@ body{
                 align-items: center;
                 gap: 20px;
 
-                li{
-                    list-style: none;
-                    text-transform: uppercase;
-                    font-weight: 700;
-                    font-size: var(--label-text);
-                    color: var(--primary-light);
+                .menu-item{
+                    
                     cursor: pointer;
                     user-select: none;
-
                     padding: 15px 20px;
-                  
+            
+                    .menu-item-link{
+                        text-decoration: none;
+                        list-style: none;
+                        text-transform: uppercase;
+                        font-weight: 700;
+                        font-size: var(--label-text);
+                        color: var(--primary-light);
+                    }
                 }
 
                 li:hover{
                     background-color: var(--primary-light);
-                    color: var(--dark-brown);
+                    
+                    .menu-item-link{
+                        color: var(--dark-brown);
+                    }
                     
                 }
+
             }
 
             .menu-icon{
@@ -253,7 +259,7 @@ body{
                 border-radius: var(--box-corner);
                 background-color: var(--primary-light);
                 box-shadow: 0 4px 10px 0  rgba(38, 16, 8, 0.15);
-                  transition: 0.3s ease;
+                transition: 0.3s ease;
 
 
 
@@ -287,6 +293,80 @@ body{
 
     }
 
+
+    /*LOGIN PAGE*/
+    .login-page{
+        background-color: var(--primary);
+        border-radius: 50px 50px 0 0;
+        margin: 0;
+        min-height: 100vh;
+
+        padding: 120px;
+        
+        nav{
+            position:static;
+        }
+
+        .login{
+
+            background-color: var(--dark-brown);
+            border-radius: var(--box-corner);
+
+
+           
+
+            h2{
+                color: var(--primary-light);
+                text-transform: uppercase;
+                margin: auto;
+                text-align: center;
+                padding: 20px 10px;
+
+            }
+
+            #login-style{
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                padding: 10px 30px 40px;
+
+
+                .login-input{
+                    border: none;
+                    background-color: white;
+                    padding: 14px 20px;
+                    border: 1px solid var(--dark-brown);
+                    border-radius: var(--box-corner);
+                    min-width: 400px;
+
+                    
+                }
+                
+                .login-input::placeholder{
+                        color: var(--grey-brown);
+                    }
+
+
+                button{
+                    margin-top: 10px ;
+                    padding: 20px;
+                    background: var(--primary-light);
+                    border: 1px solid var(--dark-brown);
+                    border-radius: var(--box-corner);
+                
+
+                    color: var(--dark-brown);
+                    font-weight: 700;
+                    text-transform: uppercase;
+                    letter-spacing: var(--letter-space);
+                    
+                    cursor: pointer;
+
+
+                }
+            }
+        }
+    }
 
 
     /*Recipe page*/

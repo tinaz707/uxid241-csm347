@@ -43,9 +43,20 @@ $category_matches = categories_button($recipes, $categories);
 </head>
 <body>
     
-<?php
- include 'includes/header.php';
-?>
+    
+    <header>
+     
+        <?php
+        include 'includes/header.php';
+        ?>
+
+        <div class="hero">
+            <img class="hero-image" src="assets/hero_2x.png" alt="">
+            <img class="logo-image" src="assets/logo_2x.png" alt="logo for YUM!">
+        </div>
+
+
+    </header>    
 
 <main>
     <div class="search-bar">
@@ -132,6 +143,7 @@ $category_matches = categories_button($recipes, $categories);
 
     
 </main>
+
 
 </body>
 </html>
