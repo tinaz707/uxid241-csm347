@@ -16,8 +16,6 @@ $matches = search_match($recipes, $search); //so matches = the return of the fun
 $categories = trim_value('category'); //php reads top to bottom so this has to be first
 $category_matches = categories_button($recipes, $categories);
 
-
-
 //Category get
 // $category_selected = [];
 

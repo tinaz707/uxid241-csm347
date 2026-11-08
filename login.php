@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //if a form is submitting then...
 
     //email verify
     if ($user !== null && password_verify($plain, $user['password_hash'])) { //if someone has that email in the DB...and the password matches the hash
-    session_regenerate_id(true);                                             //log in was a success so replace the session with a new ID
+    session_regenerate_id(true);                                             //log in was a success so replace the session with a new ID(replacing the random one created from the session(start...since now users are logged in))
 
     // store the logged-in user's ID into the session
     $_SESSION['user_id'] = $user['id'];
@@ -40,7 +40,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //if a form is submitting then...
     }
          else{
                 $errors[] = 'Invalid email or password.'; //if no email matches or if email matches but pw is wrong...add this error to the errors array
-        
     }
        
 }
