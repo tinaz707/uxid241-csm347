@@ -5,29 +5,36 @@ session_start();
 $conn = require_once 'data/db.php';
 require_once 'functions.php';
 
-//from lecture 
-$sql = 'SELECT * FROM recipes'; //Select=recieve data | *=select all columns | FROM...=gets data from table
-$result = mysqli_query($conn, $sql); //run the SQL using db connection
-$recipes = mysqli_fetch_all($result, MYSQLI_ASSOC); // get the rows and puts them in recipes , this defines recipes (if i delete this the recipe cards are gone)
-
 $search = trim_value('name'); //defines user input
-$errors =search_error($search); //array for errors
-$matches = search_match($recipes, $search); //so matches = the return of the function which is what finds the match
-
 $categories = trim_value('category'); //php reads top to bottom so this has to be first
-$category_matches = categories_button($recipes, $categories);
+$errors =search_error($search); //array for errors
 
-//Category get
-// $category_selected = [];
+    if ($search !== ''){ //if the search is not empty...
 
-//ERROR FUNCTION ==============================================
-// if(isset($_GET['name'])){ //if the name field was submitted
-//         if ($search === ''){ //if its empty then its an error
-//             $errors[] = 'Search can not be empty!';
-//         }
-//  } //defines errors
-//=============================================================
+                //SEARCHHH
+                $like = '%' . $search . '%'; //W4 Lecture -- user input ex %chicken% -- tells SQL to find titles containing 'chicken'
+                
+                //sql = WHAT i want my db to do
+                $sql = 'SELECT * FROM recipes
+                        WHERE title LIKE ?'; // ? = value provided/ like a blank
 
+                $result = mysqli_execute_query($conn, $sql, [$like]);
+                    //conn = use my db | sql = execute this sql statment | [$like] = put this value into ? | and then save the resule into $result
+                                            
+                //CATEGORY
+            } elseif ($categories !== ''){ //if category is not empty..
+                    $sql = 'SELECT * FROM recipes
+                                WHERE categories_id = ?';
+                    $result = mysqli_execute_query($conn, $sql, [$categories]);
+
+            } else{ //if search is empty and no category is clicked
+                    $sql = 'SELECT * FROM recipes';
+                    $result = mysqli_execute_query($conn, $sql,);
+            }
+    
+            $recipes = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+//===================
 ?>
 
 <!DOCTYPE html>
@@ -112,7 +119,7 @@ $category_matches = categories_button($recipes, $categories);
     </div>
 
     <!-- NO MATCH====================================================  -->
-    <?php if ( $search !== '' && empty($matches)): ?> <!--if the input has no match with anything in the array-->
+    <?php if ( $search !== '' && empty($recipes)): ?> <!--if the input has no match with anything in the array-->
         <p>Sorry we don't have<?= e($search)?>!</p> <!--display this-->
     <?php endif; ?>
     <!--=============================================================  -->
@@ -121,19 +128,24 @@ $category_matches = categories_button($recipes, $categories);
     <div class="recipe-board">
     <!-- RECIPE CARD DISPLAY====================================================  -->
         <?php  //if the matches is empty show the cards for all , else show the matches
-            if ($search !== ''){ //if the search is not empty...
-                foreach ($matches as $match){ //take the matches and make each item in the array as one 
-                echo recipe_card($match); //uses the function to display matches
-                }
-            } elseif ($categories !== ''){ //if category is not empty..
-                foreach($category_matches as $category_match){
-                    echo recipe_card($category_match);
-                }
-            } else{ //if search is empty and no button is clicked
-                foreach ($recipes as $recipe){
-                echo recipe_card($recipe); //uses the function to display all 
-                }
-            }
+            // if ($search !== ''){ //if the search is not empty...
+            //     foreach ($recipes as $recipe){ //take the matches and make each item in the array as one 
+            //     echo recipe_card($recipe); //uses the function to display matches
+            //     }
+            // } elseif ($categories !== ''){ //if category is not empty..
+            //     foreach($category_matches as $category_match){
+            //         echo recipe_card($category_match);
+            //     }
+            // } else{ //if search is empty and no button is clicked
+            //     foreach ($recipes as $recipe){
+            //     echo recipe_card($recipe); //uses the function to display all 
+            //     }
+            // }
+
+           foreach ($recipes as $recipe){
+                echo recipe_card($recipe);
+           }
+        
         ?>
     <!--=============================================================  -->
 

@@ -14,6 +14,114 @@ function e(string $key): string {
     return htmlspecialchars($key, ENT_QUOTES, 'UTF-8'); 
 } //this function is to safely display text
 
+//=====================
+//adding the IF logged in - AI help put the pieces I already have used together
+function recipe_card(array $recipe):string{
+
+    $buttons = ''; //not logged in means no button(since its empty)
+
+    //for testing purposes an empty image
+    $image = '';
+
+    if(isset($_SESSION['user_id'])){
+
+    //AI to troubleshoot so making the button to a form with delete so that the delete page can GET the id
+        $buttons = '
+                <div class="logged-in-buttons">
+
+                
+        <a href="admin/edit-recipe.php?recipe_id='.(int)($recipe["recipe_id"]).'" class="admin-button">Edit</a>                    
+                    
+            <form action="admin/delete-recipe.php" method="POST">
+                <input 
+                    type="hidden" 
+                    name="recipe_id" 
+                    value="'.(int)($recipe["recipe_id"]).'"
+                >
+
+                <button class="admin-button" type="submit">Delete</button>
+            </form>
+                </div>';
+    }
+
+    //if image is not null
+    if ($recipe["main_image"] !== null){
+        $image = '<img src="'.e($recipe["main_image"]).'" alt="completed recipe image">';
+
+    }
+
+    //used AI to trouble shoot this...had href on the outside so it was creating an extra <a> and messing up my grid...put it inside the div and it worked!
+        return '
+                <div class="recipe-card">
+                    <a class="recipe-card-link" href="recipe.php?recipe_id='.(int)($recipe["recipe_id"]).'">
+                        '.$image.'               
+            <div class="card-description">
+                                <h2>'.e($recipe["title"]).'</h2>  
+                                <p>'.e($recipe["subtitle"]).'</p>
+                            </div>        
+                        </a>   
+                    '.$buttons.'
+                </div>';
+} 
+
+
+
+
+//DEFINE ERRORS
+function search_error (string $search): array{ //define blank search error
+    
+    $errors=[];    
+
+    if(isset($_GET['name'])){ //if the name field was submitted
+        if ($search === ''){ //if its empty then its an error
+            $errors[] = 'Search can not be empty!';
+        }
+    }
+    
+    return $errors;
+}
+// =============================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//RECIPE CARD DISPLAY
+
+// function card_display(array $recipes): array{
+
+//     $card_display = [];
+//         if($search === ''){ //if the name field is empty show all the recipes
+//                 foreach ($recipes as $recipe){
+//                 echo recipe_card($recipe); //uses the function to display all 
+//                 }
+//             } else {
+//                 foreach ($matches as $match){ //take the matches and make each item in the array as one 
+//                 echo recipe_card($match); //uses the function to display matches
+//                 }
+//             }
+
+//         return $card_display;
+// }
+
+
 // function recipe_card(array $recipe):string{ //recipe car will give one recipe an thats an array
 //      return '<div class="recipe-card">
 //                 <img src="'.e($recipe["main_image"]).'" alt="completed recipe image">
@@ -41,130 +149,6 @@ function e(string $key): string {
 //AI to troubleshoot error with the main_image --> forgot to add the '.' at the end
 
 
-
-
-//=====================
-//adding the IF logged in - AI help put the pieces I already have used together
-function recipe_card(array $recipe):string{
-
-    $buttons = ''; //not logged in means no button(since its empty)
-
-    //for testing purposes an empty image
-    $image = '';
-
-    if(isset($_SESSION['user_id'])){
-
-    //AI to troubleshoot so making the button to a form with delete so that the delete page can GET the id
-        $buttons = '
-                <div class="logged-in-buttons">
-
-                
-        <a href="admin/edit-recipe.php?recipe_id='.e($recipe["recipe_id"]).'" class="admin-button">Edit</a>                    
-                    
-            <form action="admin/delete-recipe.php" method="POST">
-                <input 
-                    type="hidden" 
-                    name="recipe_id" 
-                    value="'.e($recipe["recipe_id"]).'"
-                >
-
-                <button class="admin-button" type="submit">Delete</button>
-            </form>
-                </div>';
-    }
-
-    //if image is not null
-    if ($recipe["main_image"] !== null){
-        $image = '<img src="'.e($recipe["main_image"]).'" alt="completed recipe image">';
-
-    }
-
-    //used AI to trouble shoot this...had href on the outside so it was creating an extra <a> and messing up my grid...put it inside the div and it worked!
-        return '
-                <div class="recipe-card">
-                    <a class="recipe-card-link" href="recipe.php?recipe_id='.e($recipe["recipe_id"]).'">
-                        '.$image.'               
-            <div class="card-description">
-                                <h2>'.e($recipe["title"]).'</h2>  
-                                <p>'.e($recipe["subtitle"]).'</p>
-                            </div>        
-                        </a>   
-                    '.$buttons.'
-                </div>';
-} 
-//i should probally just have this in the index page itself...^^
-
-
-
-// DEFINE MATCHES ==============================================
-// the function search_match will need an array/list of the recipes AND the search result, and bring that back in a array/list
-function search_match(array $recipes, string $search): array{ //passing the recipes and user input
-
-    $matches = []; 
-//Ai helped troubleshoot when it only showed one recipe for the filter..I had an extra bracket ($recipes as $recipe){{ ....
-    if ($search !== '' ){ //if the input is not empty
-    foreach ($recipes as $recipe){ //loop through recipes and run each one as recipe(a single one) one at a time; 
-        if (str_contains(strtolower($recipe['title']),strtolower($search))){ //if string contains the search term, covert the recipe name to lowercase and user serach to lowecase (this way it can match and come back as true)
-             $matches[] = $recipe;//add the match to the new array
-        }
-        }
-    }
-    
-    return $matches;
-}
-
-//CATEGORIES
-function categories_button(array $recipes, string $categories): array{
-       $category_matches = [];
-       
-
-    foreach ($recipes as $recipe){
-        
-        if ($recipe['categories_id'] === $categories){ //if the recipe id is the same as the category selected
-            $category_matches[] = $recipe;
-        }
-    }
-
-    return $category_matches; 
-    
-
-    
-}
-
-
-
-//DEFINE ERRORS
-function search_error (string $search): array{ //define blank search error
-    
-    $errors=[];    
-
-    if(isset($_GET['name'])){ //if the name field was submitted
-        if ($search === ''){ //if its empty then its an error
-            $errors[] = 'Search can not be empty!';
-        }
-    }
-    
-    return $errors;
-}
-// =============================================================
-
-//RECIPE CARD DISPLAY
-
-// function card_display(array $recipes): array{
-
-//     $card_display = [];
-//         if($search === ''){ //if the name field is empty show all the recipes
-//                 foreach ($recipes as $recipe){
-//                 echo recipe_card($recipe); //uses the function to display all 
-//                 }
-//             } else {
-//                 foreach ($matches as $match){ //take the matches and make each item in the array as one 
-//                 echo recipe_card($match); //uses the function to display matches
-//                 }
-//             }
-
-//         return $card_display;
-// }
 
 
 ?>
