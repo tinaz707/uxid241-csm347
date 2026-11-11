@@ -5,7 +5,7 @@ session_start();
 
 //guard
 if (!isset($_SESSION['user_id'])) {
-  header('Location: ../index.php');
+  header('Location: ../login.php');
   exit;
 }
 
@@ -18,14 +18,10 @@ $sql= 'DELETE FROM recipes WHERE recipe_id = ?'; //AI troubleshoot...I had 'id' 
 mysqli_execute_query(
     $conn,
     $sql,
-    [$recipe_id] //this is that placeholder in sql '?'
+    [$recipe_id] //this is that placeholder in sql --> '?'
 
 );
 
 header('Location: ../index.php');
-exit; //leave the hp and then literally come back
-
-
-var_dump($recipe_id);
-exit;
+exit; 
 ?>

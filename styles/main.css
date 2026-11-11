@@ -130,6 +130,7 @@ body{
 
     font-family: 'IstokWeb', sans-serif;
     line-height: var(--line-height);
+    background-color: var(--primary); 
     
   
 
@@ -643,6 +644,13 @@ body{
         
         nav{
             position:static;
+        }
+
+        .error{
+            text-align: center;
+            color: red;
+            text-transform: uppercase;
+            font-weight: 700;
         }
 
         .login, .add-recipe{

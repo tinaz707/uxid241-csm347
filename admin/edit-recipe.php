@@ -7,8 +7,8 @@ $conn = require_once '../data/db.php';
 require_once '../functions.php';
 
 //guard
-if (!isset($_SESSION['user_id'])) { //if user is not logged in kick them out!
-  header('Location: ../index.php');
+if (!isset($_SESSION['user_id'])) { //if user is not logged in kick them out(to log in!)!
+  header('Location: ../login.php');
   exit;
 }
 
@@ -18,7 +18,7 @@ if (!isset($_SESSION['user_id'])) { //if user is not logged in kick them out!
    
 
     $recipe_id = (int) $_GET['recipe_id']; //getting the spefic id --> this works
-
+    $errors = [];
             
     $sql = 'SELECT * FROM recipes WHERE recipe_id = ?'; //was missing the ? smh
           
@@ -35,29 +35,33 @@ if (!isset($_SESSION['user_id'])) { //if user is not logged in kick them out!
             $title = trim_post('title');
             $subtitle = trim_post('subtitle');
 
+        if ($title === '') {
+                $errors[] = 'Recipe name is required!';
+            }
 
-            $sql = 'UPDATE recipes
-                    SET title =?, subtitle = ? 
-                    WHERE recipe_id = ?';
+            if ($subtitle === '') {
+                $errors[] = 'Subtitle is required!';
+            }
+
+            if (empty($errors)) {
+                $sql = 'UPDATE recipes
+                        SET title =?, subtitle = ? 
+                        WHERE recipe_id = ?';
 
 
-            mysqli_execute_query(
-                $conn,
-                $sql,
-               [$title, $subtitle, $recipe_id]
-            );
+                mysqli_execute_query(
+                    $conn,
+                    $sql,
+                [$title, $subtitle, $recipe_id]
+                );
 
-            header('Location: ../index.php'); //can't head to recipe page bc of the ingredients using explore(cant use NULL it needs a string)
+                header('Location: ../index.php'); //can't head to recipe page bc of the ingredients using explore(cant use NULL it needs a string)
+                exit; //was missing this --> tells php to stop running the page
+
+            }
 
 
     }
-
-
-
-  
-
-
-//Future me include some error or completion message/FEEDBACK
 
 ?>
 
@@ -91,6 +95,11 @@ if (!isset($_SESSION['user_id'])) { //if user is not logged in kick them out!
 
         <form id="add-style" method="post">
            <fieldset>
+
+                    <?php foreach($errors as $error): ?> 
+                        <p class="error"><?= e($error) ?></p>  <!-- '?=' shortcut for echo -->
+                    <?php endforeach;?>
+
                 <div class="label-input">
                     <label for="title">Recipe Name</label>
                     <input 
@@ -99,7 +108,8 @@ if (!isset($_SESSION['user_id'])) { //if user is not logged in kick them out!
                         id="title" 
                         name="title" 
                         value = "<?= e($recipe["title"]) ?>"
-                        required>
+                        
+                    >
                 </div>
 
                 <div class="label-input">
@@ -110,7 +120,7 @@ if (!isset($_SESSION['user_id'])) { //if user is not logged in kick them out!
                         id="subtitle" 
                         name="subtitle" 
                         value = "<?= e($recipe["subtitle"]) ?>"
-                        required
+                        
                     >
                 </div>
 

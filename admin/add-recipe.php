@@ -16,26 +16,39 @@ if (!isset($_SESSION['user_id'])) { //if user is not logged in kick them out!
 
 <?php
 
-$added = '';
+// $added = ''; forgot what this was for ---delete later
+$errors = [];
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $title = trim_post('title');
     $subtitle = trim_post('subtitle');
 
-    $sql = 'INSERT INTO recipes (title, subtitle) VALUES (?, ?)';
+    //ERRORS
+    if($title === ''){
+        $errors[] = 'Recipe name is required!';
+    }
+     if($subtitle === ''){
+        $errors[] = 'Subtitle is required!';
+    }
+
+    //NO ERRORS so...
+    if (empty($errors)){
+        $sql = 'INSERT INTO recipes (title, subtitle) VALUES (?, ?)';
 
 
-    mysqli_execute_query(
-        $conn,
-        $sql,
-        [$title , $subtitle]
-    );
+        mysqli_execute_query(
+            $conn,
+            $sql,
+            [$title , $subtitle]
+        );
 
-    header('Location: ../index.php');
-exit; //this way once sumbited you go back to the hp 
+        header('Location: ../login.php');
+        exit; 
+      
+    }
+
 
 }
-//Future me include some error or completion message/FEEDBACK
 
 
 
@@ -68,18 +81,23 @@ exit; //this way once sumbited you go back to the hp
         <div class="add-recipe">
         <h2>Add a Recipe!</h2>
 
-       
+          <!-- ERROR DISPLAY==============================================  -->
+
 
         <form id="add-style" action='add-recipe.php' method="post">
-           <fieldset>
+           <fieldset><?php foreach($errors as $error): ?> 
+                        <p class="error"><?= e($error) ?></p>  <!-- '?=' shortcut for echo -->
+                    <?php endforeach;?>
                 <div class="label-input">
+                    
                     <label for="title">Recipe Name</label>
-                    <input placeholder="Ancho-Orange Chicken..." class="add-input" type="text" id="title" name="title" required>
+                    <input placeholder="Ancho-Orange Chicken..." class="add-input" type="text" id="title" name="title" >
+               
                 </div>
 
                 <div class="label-input">
                     <label for="subtitle">Subtitle</label>
-                    <input placeholder="with Kale Rice and..." class="add-input" type="text" id="subtitle" name="subtitle" required>
+                    <input placeholder="with Kale Rice and..." class="add-input" type="text" id="subtitle" name="subtitle">
                 </div>
 <!-- 
                 <div class="label-input">

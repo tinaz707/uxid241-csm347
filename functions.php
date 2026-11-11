@@ -20,7 +20,7 @@ function recipe_card(array $recipe):string{
 
     $buttons = ''; //not logged in means no button(since its empty)
 
-    //for testing purposes an empty image
+    //for beta testing purposes an empty image
     $image = '';
 
     if(isset($_SESSION['user_id'])){
