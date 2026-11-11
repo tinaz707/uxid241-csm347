@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 04, 2026 at 11:05 PM
+-- Generation Time: Nov 11, 2026 at 07:19 AM
 -- Server version: 10.11.16-MariaDB
 -- PHP Version: 8.4.27
 
@@ -29,6 +29,7 @@ USE `uxid241`;
 -- Table structure for table `categories`
 --
 
+DROP TABLE IF EXISTS `categories`;
 CREATE TABLE `categories` (
   `categories_id` int(11) NOT NULL,
   `name` varchar(120) NOT NULL
@@ -52,18 +53,19 @@ INSERT INTO `categories` (`categories_id`, `name`) VALUES
 -- Table structure for table `recipes`
 --
 
+DROP TABLE IF EXISTS `recipes`;
 CREATE TABLE `recipes` (
   `recipe_id` int(11) NOT NULL,
   `title` varchar(120) NOT NULL,
   `subtitle` varchar(200) NOT NULL,
-  `description` text NOT NULL,
-  `servings` int(11) NOT NULL,
-  `total_time` int(11) NOT NULL,
-  `categories_id` int(11) NOT NULL,
-  `main_image` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `ingredients` text NOT NULL,
-  `steps` text NOT NULL
+  `description` text DEFAULT NULL,
+  `servings` int(11) DEFAULT NULL,
+  `total_time` int(11) DEFAULT NULL,
+  `categories_id` int(11) DEFAULT NULL,
+  `main_image` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `ingredients` text DEFAULT NULL,
+  `steps` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -120,11 +122,19 @@ INSERT INTO `recipes` (`recipe_id`, `title`, `subtitle`, `description`, `serving
 -- Table structure for table `users`
 --
 
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password_hash` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `email`, `password_hash`) VALUES
+(3, 'test@testemail.com', '$2y$12$H8PX6xv/OQD9xeu2WMqBdeltk35u1QD12hTFjotoGeyM9jpx6cLbO');
 
 --
 -- Indexes for dumped tables
@@ -170,7 +180,7 @@ ALTER TABLE `recipes`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables

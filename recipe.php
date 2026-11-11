@@ -1,5 +1,7 @@
 <?php
 declare(strict_types=1);
+session_start();
+
 
 $conn = require_once 'data/db.php';
 require_once 'functions.php';

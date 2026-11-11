@@ -261,20 +261,23 @@ body{
             margin: auto auto 60px auto; /*double check this.*/
             max-width: 1200px;
             width: 100%;
-            .recipe-card-link{
+        
+                a{
+                    text-decoration: none;
+                    color: var(--dark-brown);
+                    padding: 0;
+                    margin: 0;
+                    
+                }
                 
-                display: block;
-                max-width: 385px;
-                width: 100%;
-                text-decoration: none;
-
                 
                 .recipe-card{
                     display: flex;
                     flex-direction: column;
-                    /* max-width: 385px; */
-                    width: 100%;
+                    max-width: 385px;
+            
                     height: auto;
+                    
                     overflow: hidden;
 
                     border: 1px solid var(--black);
@@ -304,9 +307,42 @@ body{
                                 margin: 0;
                             }                
                     }
+
+                    .logged-in-buttons{
+                        display: flex;
+                        flex-direction: row;
+                        gap: var(--small-gap);
+                        justify-content: center;
+                        padding-bottom: 20px;
+
+                        .admin-button{
+                            cursor: pointer;
+                            padding: 15px;
+                            border-radius: var(--box-corner);
+                            background-color: transparent;
+                            border: 1px solid var(--dark-brown);
+                            color: var(--dark-brown);
+                            width: 160px;
+                            text-align: center;
+
+                            text-transform: uppercase;
+                            transition: 0.2s ease;
+                        }
+                        
+                        .admin-button:hover{
+                             background-color: var(--dark-brown);
+                            color: var(--primary);
+                            border: 1px solid var(--primary);
+                            font-weight: 700;
+                        }
+                    
+                    }
+
+
+
                     
                 }    
-            }
+            
                         
 
             .recipe-card:hover {
@@ -675,7 +711,11 @@ body{
                    opacity: 50%;
                 }
 
-                button{
+
+            }
+        }    
+        
+        button, .submit-button{
                     margin-top: 10px ;
                     padding: 20px;
                     background: var(--primary-light);
@@ -692,8 +732,6 @@ body{
 
 
                 }
-            }
-        }
         
         .login-error{
             color: var(--primary-light);
@@ -780,11 +818,7 @@ body{
         main{
             margin-top: -50px;
 
-            .search-bar{
-                #search-bar-style input{
-
-                }
-            }
+          
         }
 
 

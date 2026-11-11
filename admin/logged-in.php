@@ -24,7 +24,7 @@ if (!isset($_SESSION['user_id'])) {
 
 <body>
     <header>
-        <?php
+         <?php
         include '../includes/header.php';
         ?>
     </header>   

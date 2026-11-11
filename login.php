@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //if a form is submitting then...
     // store the logged-in user's ID into the session
     $_SESSION['user_id'] = $user['id'];
 
-    header('Location: admin/index.php'); //once logged in send them to this page
+    header('Location: admin/logged-in.php'); //once logged in send them to this page
     exit;                               //stop running this page
     }
          else{
