@@ -14,18 +14,35 @@ function e(string $key): string {
     return htmlspecialchars($key, ENT_QUOTES, 'UTF-8'); 
 } //this function is to safely display text
 
-function recipe_card(array $recipe):string{ //recipe car will give one recipe an thats an array
-     return '<div class="recipe-card">
-                <img src="'.e($recipe["main_image"]).'" alt="completed recipe image">
+// function recipe_card(array $recipe):string{ //recipe car will give one recipe an thats an array
+//      return '<div class="recipe-card">
+//                 <img src="'.e($recipe["main_image"]).'" alt="completed recipe image">
             
+//                     <div class="card-description">
+//                         <h2>'.e($recipe["title"]).'</h2>  
+//                         <p>'.e($recipe["subtitle"]).'</p>
+//                     </div>        
+//             </div>';
+// } 
+
+//AI to help write the url for the link...i oringally JUST had an echo statement...now it will echo the id and the overall link works
+function recipe_card(array $recipe):string{ //recipe car will give one recipe an thats an array + LINK to recipe page..
+     return '<a class"recipe-card-link" href="recipe.php?recipe_id='.e($recipe["recipe_id"]).'">
+            <div class="recipe-card">.
+                <img src="'.e($recipe["main_image"]).'" alt="completed recipe image">
                     <div class="card-description">
                         <h2>'.e($recipe["title"]).'</h2>  
                         <p>'.e($recipe["subtitle"]).'</p>
                     </div>        
-            </div>';
+            </div>
+        </a>';
 } 
 //AI to help combine html with php --> remember to connect the html with the php you have to use a dot!! 
 //AI to troubleshoot error with the main_image --> forgot to add the '.' at the end
+
+//=====================
+
+
 
 
 

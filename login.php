@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //if a form is submitting then...
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homepage</title>
+    <title>Log In</title>
     
     <link rel="stylesheet" href="styles/normalize.css">
     <link rel="stylesheet" href="styles/main.css"> <!--renamed to main bc xxamp wasn't loading it when it was called styles???-->

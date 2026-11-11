@@ -32,126 +32,62 @@
             </div>
         </nav>
 
-           <div class="hero">
-            <img class="hero-image" src="assets/hero_2x.png" alt="">
-            <img class="logo-image" src="assets/logo_2x.png" alt="logo for YUM!">
-        </div>
+        
 
     </header>    
 
 
-    <main class="recipe-main">
-        <div class="recipe-overview">
-            
-            <a href="index.php" div class="recipe-nav">
-                <img src="assets/arrow-left.svg" alt="back arrow">
-                <p>All Recipes</p>
-            </a>
 
-            <div class="recipe-info">
-                <div class="recipe-photo">
-                    <img src="assets/images/ancho-orange-chicken/dish.jpg" alt="">
+
+  <main class="add-recipe-page">
+        <div class="add-recipe">
+        <h2>Add a Recipe!</h2>
+
+       
+
+        <form id="add-style" action='add-recipe.php' method="post">
+           <fieldset>
+                <div class="label-input">
+                    <label for="title">Recipe Name</label>
+                    <input placeholder="Ancho-Orange Chicken..." class="add-input" type="text" id="title" name="title" required>
                 </div>
 
-                <div class="recipe-intro">
-                    <div class="title-sub">
-                        <h1 class="title">Ancho Orange Chicken</h1>
-                        <h3 class="subtitle">with kale rice & Roasted Carrots</h3>
-
-                    </div>
-                    
-                    <p class="description">We're amping up chicken breasts with a glaze of smoky ancho chile paste and fresh orange juice in this recipe. On the side, roasted carrots and lightly creamy, golden raisin-studded rice perfectly accent the sweetness of the glaze.
-</p>
+                <div class="label-input">
+                    <label for="subtitle">Subtitle</label>
+                    <input placeholder="with Kale Rice and..." class="add-input" type="text" id="subtitle" name="subtitle">
                 </div>
 
-            </div>
+                <!-- <div class="label-input">
+                    <label for="description">Description</label>
+                    <input placeholder="Provide a short description of the dish..." class="add-input" type="text" id="description" name="description">
+                </div> -->
+           </fieldset>
 
-            <!---box that holds both-->
-            <div class="ingredients-and-instructions"><!--LEFT SIDE-->
-                <div class="ingredients">
-                    
-                    <div class="servings-and-timing">
-                        <div id="hr-line" class="servings">
-                            <p class="label">Servings</p>
-                            <p class="value">4</p>
-                        </div>
-                        
-                        <div class="servings">
-                            <p class="label">Timing</p>
-                            <p class="value">45 min</p>
-                        </div>
 
-                    </div>
-
-                    <hr>
-
-                                        
-                    <div class="ingredients-list-box">
-                        <h2>ingredients</h2>
-                        <ul class="ingredients-list">
-                            <li>¾ lb Carrots</li>
-                            <li>¾ lb Carrots</li>
-                            <li>4 Boneless, Skinless Chicken Breasts</li>
-                            <li>1 Tbsp Ancho Chile Paste</li>
-                            <li>¾ lb Carrots</li>
-                        </ul>
-
-                        <img src="assets/images/ancho-orange-chicken/ingredients.png" alt="images of ingredients for recipe">
-                    </div>
-
-                    <hr>
-
-                    <div class="tools">
-                        <h2>TOOLS</h2>
-                        <p>Garlic Press</p>
-                    </div>
+           <!-- <fieldset>
+                <div class="label-input">
+                    <label for="description">Servings</label>
+                    <input class="add-input" type="number" id="servings" name="servings">
                 </div>
 
-
-                <div class="instructions"> <!--RIGHT SIDE-->
-                    <h3 class="instructions-title">instructions</h3>
-
-                    <div class="step-format">
-                        <div class="step-number-left">
-                            <p>1</p>
-                        </div>
-
-                        <div class="step-desc-right">
-                            <h3>Cook the rice</h3>
-
-                            <p>Place an oven rack in the center of the oven, then preheat to 450°F. In a medium pot, combine the rice, a big pinch of salt, and 1 1/2 cups of water. Heat to boiling on high. Once boiling, cover and reduce the heat to low. Cook 12 to 14 minutes, or until the water has been absorbed and the rice is tender. Turn off the heat and fluff with a fork. Cover to keep warm.</p>
-                            <img src="assets/images/ancho-orange-chicken/step-1.jpg" alt="step image">
-
-                       
-                        </div>
-
-                       
-
-                    </div>
-
-                <hr>
-
-                    <div class="tip">
-                        <h3>A little tip from the kitchen...</h3>
-                        <p>Ancho chile is mild and smoky. For a little extra heat, add a pinch of cayenne to the glaze. Refrigerate leftovers within 2 hours and enjoy within 3 days.</p>
-                    </div>
-
-
+                <div class="label-input">
+                    <label for="description">Total Time</label>
+                    <input class="add-input" type="number" id="total-time" name="total-time">
                 </div>
-            
-            
-            </div>
 
+                <div class="label-input">
+                    <label for="description">Category</label>
+                    <input class="add-input" type="text" id="total-time" name="total-time">
+                </div>
+           </fieldset> -->
 
+        </form>
+    </div>
     </main>
+    
+  
 
-    <footer>
-        <div class="next-recipe">
-            <p>find your next yummy recipe</p>
-            <img src="assets/arrow-right.svg" alt="arrow pointing right">
-
-        </div>
-    </footer>
 
 </body>
 </html>
+
