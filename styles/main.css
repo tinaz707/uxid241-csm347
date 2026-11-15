@@ -655,27 +655,38 @@ body{
 
         .login, .add-recipe{
 
-            background-color: var(--dark-brown);
+            background-color: var(--primary-light);
             border-radius: var(--box-corner);
 
             fieldset{
-                    display: flex;
-                    flex-direction: column;
-                    gap: 20px;
-                    border: none;
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                border: none;
             }
 
+            .details-servings{
+                display: flex;
+                flex-direction: row;
+            }
 
            label{
                 font-family: 'IstokWeb', sans-serif;
-                color: var(--primary-light);
+                color: var(--dark-brown);
+                font-weight: 700;
                 text-transform: capitalize;
                 padding: 5px 14px;
+
            }
 
+           hr{
+            width: 100%;
+            border: 2px  solid var(--grey-brown);
+            opacity: 80%;
+           }
             h2 {
                 font-family: 'IstokWeb', sans-serif;
-                color: var(--primary-light);
+                color: var(--dark-brown);
                 text-transform: uppercase;
                 margin: auto;
                 text-align: center;
@@ -688,27 +699,35 @@ body{
                 flex-direction: column;
                 gap: 20px;
                 padding: 10px 30px 40px;
+                align-items: stretch;
 
                 /*for add-recipes*/
                 .label-input{
                     display: flex;
-                    flex-direction: column;
+                    flex-direction: column;                    
+                
+                    .note-for-user{
+                        padding-left: 15px;
+                        padding-bottom: 5px;
+                        color: var(--grey-brown);
+                        font-style: italic;
+                    }
 
-                    
+                 
                 }
 
                 .login-input, .add-input{
-                    border: none;
-                    background-color: white;
+                    
+                    background-color: var(--primary);
                     padding: 14px 20px;
-                    border: 1px solid var(--dark-brown);
+                    border: 1px solid var(--grey-brown);
                     border-radius: var(--box-corner);
-                    min-width: 400px;
 
+                    width: 100%;
+                    min-width: 0;
                   
                 }
-                
-            
+          
 
                 .login-input::placeholder{
                         color: var(--grey-brown);
@@ -716,7 +735,7 @@ body{
 
                 .add-input::placeholder{
                    color: var(--grey-brown);
-                   opacity: 50%;
+                   
                 }
 
 
