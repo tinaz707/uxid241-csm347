@@ -34,3 +34,4 @@ ChatGPT-6:
 //Help to figure out changing login to logout in the header once user was logged in
 //Helped troubleshoot when I changed the search and category filtering to prepared SQL statements
 //Helped troubleshooting when I continued to update the recipe_card function
+//Helped to figure out how to explode with line breaks ("\n")

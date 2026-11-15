@@ -17,9 +17,9 @@ $results = mysqli_execute_query(
 );
 $recipe_id = mysqli_fetch_assoc($results);
 
-$ingredients = explode("*", $recipe_id["ingredients"]); //seperating the ingridents into seperate strings
+$ingredients = explode("\n", $recipe_id["ingredients"]); //used AI to help figure out how to explode with line breaks (so i don't need to reupload my db)
 $steps = explode("*", $recipe_id["steps"]);
-
+$steps_image = explode("*", $recipe_id["steps_image"]);
 ?>
 
 
@@ -97,24 +97,17 @@ $steps = explode("*", $recipe_id["steps"]);
                         <h2>ingredients</h2>
                         <ul class="ingredients-list">
                             <?php foreach ($ingredients as $ingredient):?>
-                                <li><?= e($ingredient) ?></li>
+                                <li><?= e($ingredient)?></li>
                             <?php endforeach?>
-                            <!-- <li>¾ lb Carrots</li>
-                            <li>¾ lb Carrots</li>
-                            <li>4 Boneless, Skinless Chicken Breasts</li>
-                            <li>1 Tbsp Ancho Chile Paste</li>
-                            <li>¾ lb Carrots</li> -->
+                            
                         </ul>
-
-                        <!-- <img src="assets/images/ancho-orange-chicken/ingredients.png" alt="images of ingredients for recipe"> -->
-                    </div>
-
                     <hr>
 
-                    <!-- <div class="tools">
-                        <h2>TOOLS</h2>
-                        <p>Garlic Press</p>
-                    </div> -->
+                        <img src="<?= e($recipe_id["ingredients_image"]) ?>" alt="images of ingredients for recipe">
+                    </div>
+
+
+        
                 </div>
 
 
@@ -129,32 +122,28 @@ $steps = explode("*", $recipe_id["steps"]);
 
                         <div class="step-desc-right">
                             <!--AI helped figured out how to double explode...split into more parts-->
-                            <?php foreach ($steps as $step):?>
-                                <?php
-                                    $step_parts = explode(":", $step, 2); // split the string even further into TWO parts (so its everything before ':' and after)
-
-                                ?>
+                            <?php foreach ($steps as $key => $step):?>  <!--Loop through the array[steps] and keep track of the position[key] and the text for that step is kept in [step]-->
+                                    <?php
+                                        $step_parts = explode(":", $step, 2); // split the string even further into TWO parts (so its everything before ':' and after)
+                                                                                //$step = the text of the specific array line being  user...so for ex step 1 text only
+                                    ?>
 
                                     <h3><?= e($step_parts[0]) ?></h3>
                                     <p> <?=e($step_parts[1])?></p>
 
-                                   <!-- <img src="assets/images/ancho-orange-chicken/step-1.jpg" alt="step image"> -->
-
+                                    <img src="<?=e($steps_image[$key])?>" alt="step image">
+                               
                                  <hr>
-                            <?php endforeach?>
+                            <?php endforeach?> 
+
 
                         </div>
-
+                            <!-- the key = what postion i'm on, the step is whats in the postion...so steps_image[key] works better than having to write [1]...[2]...-->
                        
 
                     </div>
 
-               
 
-                    <!-- <div class="tip">
-                        <h3>A little tip from the kitchen...</h3>
-                        <p>Ancho chile is mild and smoky. For a little extra heat, add a pinch of cayenne to the glaze. Refrigerate leftovers within 2 hours and enjoy within 3 days.</p>
-                    </div> -->
 
 
                 </div>
