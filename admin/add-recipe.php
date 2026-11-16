@@ -140,14 +140,18 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 <div class="label-input">
                     <label for="ingredients"> Ingredients</label>
                     <p class="note-for-user">
-                        Please separate each ingredient using an asterisk (*).
+                        Add each ingredient on a new line
                     </p>
                     <textarea
-                        placeholder="e.g. ¾ cup Jasmine Rice*¾ lb Carrots*2 cloves Garlic*1 bunch Kale"
+                            placeholder="e.g.
+¾ cup Jasmine Rice
+¾ lb Carrots
+2 cloves Garlic
+1 bunch Kale"
                         class="add-input"
                         id="ingredients"
                         name="ingredients"
-                        rows="5"
+                        rows="15"
                         required
                     ></textarea>                
                 </div>
@@ -158,7 +162,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                         Please write the step title followed by a colon (:) and the instructions. Separate each complete step with an asterisk(*).
                     </p>
                     <textarea
-                        placeholder="e.g. Step Title: Instructions for step*Cook the rice: Place an oven rack in the center of the oven, then preheat to 450°F. ....*Prepare the ingredients & make the glaze: While the rice cooks..."
+                        placeholder=
+                        "e.g. Step Title: Instructions for step*Cook the rice: Place an oven rack in the center of the oven, then preheat to 450°F. ....*Prepare the ingredients & make the glaze: While the rice cooks..."
                         class="add-input"
                         id="steps"
                         name="steps"
@@ -167,6 +172,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                     ></textarea>                
                 </div>
            </fieldset>
+
+            <button type="submit" aria-label="submit">Submit</button>
 
         </form>
 

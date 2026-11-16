@@ -745,21 +745,25 @@ body{
         button, .submit-button{
                     margin-top: 10px ;
                     padding: 20px;
-                    background: var(--primary-light);
+                    background: var(--dark-brown);
                     border: 1px solid var(--dark-brown);
                     border-radius: var(--box-corner);
                 
 
-                    color: var(--dark-brown);
+                    color: var(--primary-light);
                     font-weight: 700;
                     text-transform: uppercase;
                     letter-spacing: var(--letter-space);
                     
                     cursor: pointer;
+                    transition: 0.3s ease;
+
+
 
 
                 }
-        
+      
+     
         .login-error{
             color: var(--primary-light);
             text-align: center;
@@ -768,7 +772,7 @@ body{
             padding-bottom: 30px;
         }
     }
-
+   
 
     footer{
         background-color: var(--primary);

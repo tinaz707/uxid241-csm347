@@ -35,3 +35,5 @@ ChatGPT-6:
 //Helped troubleshoot when I changed the search and category filtering to prepared SQL statements
 //Helped troubleshooting when I continued to update the recipe_card function
 //Helped to figure out how to explode with line breaks ("\n")
+//Helped figure out where the value goes for a <textarea>
+//Helped to figure out how to show the recipe's category on the edit page
