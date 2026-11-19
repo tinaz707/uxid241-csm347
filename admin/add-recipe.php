@@ -11,19 +11,96 @@ if (!isset($_SESSION['user_id'])) { //if user is not logged in kick them out!
   header('Location: ../index.php');
   exit;
 }
-
-?>
-
-<?php
-
-// $added = ''; forgot what this was for ---delete later
+ 
 $errors = [];
 
+//FORM SUBMISSION =================================================================
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
-    $title = trim_post('title');
+    $title = trim_post('title');                     //get name=title + trim space...
     $subtitle = trim_post('subtitle');
+    $description = trim_post('description');
 
-    //ERRORS
+    $servings = (int) trim_post('servings');        //get servings + convert value into integer
+    $total_time = (int) trim_post('total-time');
+    $category = (int) trim_post('category');    
+
+    $ingredients = trim_post('ingredients');
+    $steps = trim_post('steps'); //AI to troubleshoot and realize I only had title and subtitle -> hadn't updated this
+
+
+    //=====UPLOADING SINGLE IMAGES=====================================================
+    $upload_folder =  __DIR__ . '/../assets/uploads'; //folder on server for uploaded images
+
+    //AI : __DIR__ → PHP automatically replaces this with the folder containing the PHP file you're currently in
+    // saying start in admin folder...go up one (../)..go into assets..go into uploads | the DIR makes the starting point clear...rather than just the path (image wont know exactly where to go)
+
+    //update this evetually bc this has no error/validation (main image + ingridents image --> but it works)
+    //AI to help clarify this was correct
+    $main_image = 'assets/uploads/' . save_uploads( //send main image through the function and store that in the path ... ex (assets/uploads/chicken.png)
+        $_FILES['photo'] ['tmp_name'],
+        $_FILES['photo'] ['name'],
+        $_FILES['photo'] ['size'],
+        $_FILES['photo'] ['error'],
+        $upload_folder
+        
+    );
+
+    $ingredients_image = 'assets/uploads/' . save_uploads(
+        $_FILES['ingredients_image'] ['tmp_name'],
+        $_FILES['ingredients_image'] ['name'],
+        $_FILES['ingredients_image'] ['size'],
+        $_FILES['ingredients_image'] ['error'],
+        $upload_folder
+        
+    );
+
+
+
+
+
+    //MULTIPLE STEPS IMAGES=======================================
+    //AI helped reorganize my code that I had from the lecture -> had some missing brackets and semi-colons//
+    $step_images = [];
+
+    // Check that step images were submitted and that the names are an array
+    // because name="steps_image[]" allows multiple files                      
+    if (isset($_FILES['steps_image']['name']) && is_array($_FILES['steps_image']['name'])) {
+
+        $files = $_FILES['steps_image'];
+
+        foreach ($files['name'] as $i => $original_name) { //loop through EACH uploaded image
+
+            // if there is a file error(no upload) just skip that one and CONTINUE
+            if ($files['error'][$i] === UPLOAD_ERR_NO_FILE) {
+                continue;
+            }
+
+            try { //try to upload the image...something might go wrong..but save the image
+                $saved = save_uploads( //send image through function | the $saved value is what gets returned so ex 'chicken.png'...
+                    $files['tmp_name'][$i], //tmp location of this '[i]=specific image'
+                    $original_name,
+                    $files['size'][$i],
+                    $files['error'][$i],
+                    $upload_folder
+                );
+
+            $step_images[] = 'assets/uploads/' . $saved; //Add the browser-usable path for this image to the array
+
+
+            } catch (RuntimeException $e) { //if something goes wrong --> those error messages with throw
+
+                    $errors[] = $e->getMessage(); //AI to cut out the example code from lecture and make things work related to what's in my file..
+            
+            }
+
+    
+        }
+
+                $steps_image = implode('*', $step_images);//AI help -> Turn step image array into same * format to match what i have in db
+
+    }
+
+    //ERRORS===================================================================
     if($title === ''){
         $errors[] = 'Recipe name is required!';
     }
@@ -33,22 +110,23 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     //NO ERRORS so...
     if (empty($errors)){
-        $sql = 'INSERT INTO recipes (title, subtitle) VALUES (?, ?)';
+        $sql = 'INSERT INTO recipes (title, subtitle, description, servings, total_time, categories_id, main_image, ingredients, ingredients_image, steps, steps_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'; 
 
 
         mysqli_execute_query(
             $conn,
             $sql,
-            [$title , $subtitle]
+            [$title, $subtitle, $description, $servings, $total_time, $category, $main_image, $ingredients, $ingredients_image, $steps, $steps_image]
         );
 
-        header('Location: ../login.php');
+        header('Location: ../index.php');
         exit; 
       
     }
 
 
 }
+
 
 
 
@@ -81,7 +159,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
        
 
-        <form id="add-style" action='add-recipe.php' method="post">
+        <form id="add-style" action='add-recipe.php' method="post" enctype="multipart/form-data">
            <fieldset><?php foreach($errors as $error): ?> 
                         <p class="error"><?= e($error) ?></p>  <!-- '?=' shortcut for echo -->
                     <?php endforeach;?>
@@ -102,8 +180,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 </div>
 
                 <div class="label-input">
-                    <label for="photo">Cover Photo</label>
-                    <input placeholder=" Provide a image of the completed dish" class="add-input" type="text" id="photo" name="photo" required>
+                    <label for="photo">Main Photo</label>
+                    <input 
+                         class="add-input"
+                         type="file"
+                         id="photo" 
+                         name="photo" 
+                         required>
                 </div>
            </fieldset>
 
@@ -157,6 +240,20 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 </div>
 
                 <div class="label-input">
+                    <label for="ingredients_image">Ingredient Photo</label>
+                    <!-- <p class="note-for-user">
+                        Image of ingredients is not required but recommended!                    
+                    </p> -->
+                    <input 
+                         class="add-input"
+                         type="file"
+                         id="ingredients_image" 
+                         name="ingredients_image" 
+                         required
+                        >
+                </div>
+
+                <div class="label-input">
                     <label for="steps"> Steps</label>
                     <p class="note-for-user">
                         Please write the step title followed by a colon (:) and the instructions. Separate each complete step with an asterisk(*).
@@ -171,6 +268,24 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                         required
                     ></textarea>                
                 </div>
+
+
+
+                <div class="label-input">
+                    <label for="steps_image">Steps Photo</label>
+                    <p class="note-for-user">
+                        Upload one image for each step, in the same order as your steps!
+                    </p>
+                    <input 
+                         class="add-input"
+                         type="file"
+                         id="steps_image" 
+                         name="steps_image[]" 
+                         multiple
+                         required
+                        >
+                </div>
+                
            </fieldset>
 
             <button type="submit" aria-label="submit">Submit</button>

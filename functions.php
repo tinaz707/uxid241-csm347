@@ -84,6 +84,98 @@ function search_error (string $search): array{ //define blank search error
 
 
 
+//AI -> just to help clarify that I understand the concept below with uploading images
+//IMAGE UPLOAD NAMING
+function make_safe_name(
+        string $original_name, //file name
+        string $ext,            //file extension (png...jpg...)
+        string $folder          //where img will store
+
+    ): string{ // when the function finishes it will return a STRING($safe_name)
+        $base = pathinfo($original_name, PATHINFO_FILENAME); //just giving the name no.png or .jpg
+        $base = strtolower($base); //lowercase
+        
+        $base = preg_replace('/[^a-z0-9]+/', '-', $base); //replace anything that isnt lowercased or a number with a dash
+
+        $base = trim ($base, '-'); //trim is trimming the front and end (ex. '-one-two-' becomes 'one-two')
+        $base = substr($base,0, 60); //limits file name
+
+
+        if  ($base === ''){     //if EVERYTHING is trimmed out and its nothing/blank 
+            $base = 'upload';   //just name it upload
+
+        }
+
+        $safe_name = $base . '.' .$ext; //filename + file type  = newname.jpg
+
+
+        //if duplicate recipe
+        $counter= 1;
+        //asking does this file exist
+        while(file_exists($folder . '/' . $safe_name)){ //asks if a file already exists with the same name
+            $safe_name = $base . '-' . $counter . '.' . $ext;   //file exists yes -> add the counter(1)
+            $counter++; //if you don't do this it will just be 1111111 -> this increases the count hence the name 
+
+        }
+
+        return $safe_name; 
+}
+
+//IMAGE UPLOAD SAVING
+function save_uploads(
+    string $tmp_name, //tmp location for uploaded file
+    string $original_name,
+    int $size, //file size
+    int $error,  //error code
+    
+    string $folder //include a folder name so it knows where to share
+    ): string{
+
+    //first validate (line 44-76 are just checking...)
+
+    //CHECKING FOR UPLOAD ERROR
+    if($error !== UPLOAD_ERR_OK){  //as long as this DOES NOT equal(!== more so means 'if' rather than not equal) (means it failed)
+        throw new RuntimeException('Upload failed'); //only an item with an error will come back
+    }
+
+    //check file size
+    $max_bytes = 2 *1024 *1024; //2MB
+    if($size > $max_bytes){ //if the size is bigger than 2MB...
+        throw new RuntimeException('file too large!!');  //...run the error
+    }
+
+
+    //SEE THE UPLOADED FILE 
+    //MIME type describes what kind of data the file actually contains
+    $finfo = new finfo(FILEINFO_MIME_TYPE); //look into the temp file and tell me if its a MIME type
+    $mime = $finfo->file($tmp_name); //ex...if its a png you will get mime='image/png'
+
+
+    $ext_map=[ //associative array, right = key, left = what is uploaded(value)
+        'image/jpeg' => 'jpg',
+        'image/png' => 'png',
+        'image/webp' => 'webp'
+    ]; //this array shows the mime type I am allowing. 
+
+    //if not in the above of files throw it away!
+    if (!isset($ext_map[$mime])){ //if the MIMe type does NOT exist in my allowed array/list
+                throw new RuntimeException('type not allowed!!'); //then kick it out(reject it)
+    }
+    $ext = $ext_map[$mime]; //mime is allowed so it reaches here and it becomes ext..
+
+    $safe_name = make_safe_name($original_name, $ext, $folder); //calling function 1
+
+    //moving the file the file
+    if(!move_uploaded_file($tmp_name, $folder . '/' . $safe_name)){ //move the file from temp location into ...folder/upload.png
+                throw new RuntimeException('could not save file :('); //! -> if moving was NOT successful run this error
+    }
+
+    return $safe_name;
+}
+
+
+
+///=============================================================
 
 
 
