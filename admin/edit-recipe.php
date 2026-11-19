@@ -12,10 +12,7 @@ if (!isset($_SESSION['user_id'])) { //if user is not logged in kick them out(to 
   exit;
 }
 
-?>
 
-<?php
-   
 
     $recipe_id = (int) $_GET['recipe_id']; //getting the spefic id --> this works
     $errors = [];
@@ -35,6 +32,14 @@ if (!isset($_SESSION['user_id'])) { //if user is not logged in kick them out(to 
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $title = trim_post('title');
             $subtitle = trim_post('subtitle');
+            $description = trim_post('description');
+
+            $servings = (int) trim_post('servings');
+            $total_time = (int) trim_post('total-time');
+            $category = (int) trim_post('categories_id');
+
+            $ingredients = trim_post('ingredients');
+            $steps = trim_post('steps');
 
         if ($title === '') {
                 $errors[] = 'Recipe name is required!';
@@ -46,14 +51,22 @@ if (!isset($_SESSION['user_id'])) { //if user is not logged in kick them out(to 
 
             if (empty($errors)) {
                 $sql = 'UPDATE recipes
-                        SET title =?, subtitle = ? 
+                        SET title =?, 
+                            subtitle = ?,
+                            description = ?,
+                            servings = ?,
+                            total_time = ?,
+                            categories_id = ?,
+                            ingredients = ?,
+                            steps = ?
+                        
                         WHERE recipe_id = ?';
 
 
                 mysqli_execute_query(
                     $conn,
                     $sql,
-                [$title, $subtitle, $recipe_id]
+                     [$title, $subtitle, $description, $servings, $total_time, $category, $ingredients, $steps, $recipe_id] //no idea about images
                 );
 
                 header('Location: ../index.php'); //can't head to recipe page bc of the ingredients using explore(cant use NULL it needs a string)
@@ -94,7 +107,8 @@ if (!isset($_SESSION['user_id'])) { //if user is not logged in kick them out(to 
 
        
 
-        <form id="add-style" action='add-recipe.php' method="post">
+        <!-- things weren't updated AI helped to troubleshoot and gave me value for action / edit-recipe php is changing the db so then the recipe.php reads the db and updates  -->
+        <form id="add-style" action="edit-recipe.php?recipe_id= <?=$recipe_id?>" method="post"> 
            <fieldset><?php foreach($errors as $error): ?> 
                         <p class="error"><?= e($error) ?></p>  <!-- '?=' shortcut for echo -->
                     <?php endforeach;?>
