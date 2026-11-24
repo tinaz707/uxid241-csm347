@@ -2,6 +2,12 @@
 declare(strict_types=1);
 session_start();
 
+
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
+
+
 //guard
 if (!isset($_SESSION['user_id'])) {
   header('Location: ../login.php');
@@ -24,8 +30,8 @@ if (!isset($_SESSION['user_id'])) {
 
 <body>
     <header>
-         <?php
-        include '../includes/header.php';
+        <?php
+            include __DIR__  . '/../includes/header.php';
         ?>
     </header>   
 

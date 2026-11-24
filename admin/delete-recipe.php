@@ -2,7 +2,6 @@
 declare(strict_types=1);
 session_start();
 
-
 //guard
 if (!isset($_SESSION['user_id'])) {
   header('Location: ../login.php');

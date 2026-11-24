@@ -2,6 +2,12 @@
 declare(strict_types=1);
 session_start();
 
+
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
+
+
 $conn = require_once 'data/db.php';
 require_once 'functions.php';
 
@@ -62,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //if a form is submitting then...
 <body>
     <header>
         <?php
-        include 'includes/header.php';
+        include __DIR__  . '/includes/header.php';
         ?>
     </header>   
 

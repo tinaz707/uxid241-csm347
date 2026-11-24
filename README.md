@@ -37,3 +37,4 @@ ChatGPT-6:
 //Helped to figure out how to explode with line breaks ("\n")
 //Helped figure out where the value goes for a <textarea>
 //Helped to figure out how to show the recipe's category on the edit page
+//Help with Image uploaded logic + provided certain lines of code when troubleshooting 

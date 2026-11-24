@@ -6,6 +6,7 @@ session_start();
 $conn = require_once '../data/db.php';
 require_once '../functions.php';
 
+
 //guard
 if (!isset($_SESSION['user_id'])) { //if user is not logged in kick them out!
   header('Location: ../index.php');
@@ -129,7 +130,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 
 
-
 ?>
 
 
@@ -148,7 +148,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     <header>
          <?php
-        include '../includes/header.php';
+        include __DIR__  . '/../includes/header.php';
         ?>
     </header>   
 

@@ -2,6 +2,7 @@
 declare(strict_types=1);
 session_start();
 
+
 $conn = require_once 'data/db.php';
 require_once 'functions.php';
 
@@ -29,7 +30,7 @@ $errors =search_error($search); //array for errors
 
             } else{ //if search is empty and no category is clicked
                     $sql = 'SELECT * FROM recipes';
-                    $result = mysqli_execute_query($conn, $sql,);
+                    $result = mysqli_execute_query($conn, $sql);
             }
     
             $recipes = mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -53,7 +54,7 @@ $errors =search_error($search); //array for errors
     <header>
      
         <?php
-        include 'includes/header.php';
+        include __DIR__  . '/includes/header.php'; //DIR = folder for THIS SPECIFIC PAGE + '(instructions on where to go from there)'
         ?>
 
         <div class="hero">
