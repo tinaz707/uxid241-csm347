@@ -24,7 +24,7 @@ declare(strict_types=1);
 
                     <?php else:?>     
                         <li class="menu-item">
-                            <a class="menu-item-link" href="/~csm347/idm232/index.php">Recipes</a>
+                            <a class="menu-item-link" href="index.php">Recipes</a>
                       </li>
                         <li class="menu-item">
                             <a class="menu-item-link" href="login.php">Login</a>
