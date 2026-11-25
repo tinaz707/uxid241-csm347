@@ -2,9 +2,12 @@
 declare(strict_types=1);
 session_start();
 
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
 
-$conn = require_once '../data/db.php';
-require_once '../functions.php';
+$conn = require_once __DIR__ . '/../data/db.php';
+require_once __DIR__ . '/../functions.php';
 
 
 //guard

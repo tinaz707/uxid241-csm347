@@ -8,8 +8,8 @@ if (!isset($_SESSION['user_id'])) {
   exit;
 }
 
-$conn = require_once '../data/db.php';
-require_once '../functions.php';
+$conn = require_once __DIR__ . '/../data/db.php';
+require_once __DIR__ . '/../functions.php';
 
 $recipe_id = (int) $_POST['recipe_id']; //int is converting to a integer since  post values are strings..
 $sql= 'DELETE FROM recipes WHERE recipe_id = ?'; //AI troubleshoot...I had 'id' when i just needed 'recipe_id' bc that is whats in my db
