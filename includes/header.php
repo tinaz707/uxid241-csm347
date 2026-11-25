@@ -11,28 +11,26 @@ declare(strict_types=1);
                  <!-- if  session is(isset=if) where the user is logged in show logout or else if not show login  -->
                    <?php if (isset($_SESSION['user_id'])):?>   
                         <li class="menu-item">
-                            <a class="menu-item-link" href="../index.php">Recipes</a>
+                            <a class="menu-item-link" href="<?php echo $root; ?>index.php">Recipes</a>
                       </li>
                     
                     <li class="menu-item">
-                        <a class="menu-item-link" href="../admin/add-recipe.php">Add Recipe</a>
+                        <a class="menu-item-link" href="<?php echo $root; ?>admin/add-recipe.php">Add Recipe</a>
                     </li>
 
-                        <li class="menu-item">
-                        <a class="menu-item-link" href="logout.php">Logout</a>
+                    <li class="menu-item">
+                        <a class="menu-item-link" href="<?php echo $root; ?>logout.php">Logout</a>
                     </li>
 
                     <?php else:?>     
                         <li class="menu-item">
-                            <a class="menu-item-link" href="index.php">Recipes</a>
-                      </li>
-                        <li class="menu-item">
-                            <a class="menu-item-link" href="login.php">Login</a>
+                            <a class="menu-item-link" href="<?php echo $root; ?>index.php">Recipes</a>
                         </li>
-                        
+                        <li class="menu-item">
+                            <a class="menu-item-link" href="<?php echo $root; ?>login.php">Login</a>
+                        </li>
                     <?php endif;?>
-
-                    
+                
             </ul>
 
              <div class="menu-icon">

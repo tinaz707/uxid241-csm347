@@ -31,7 +31,8 @@ if (!isset($_SESSION['user_id'])) {
 <body>
     <header>
         <?php
-            include __DIR__  . '/../includes/header.php';
+            $root = '../';
+            include __DIR__ . '/../includes/header.php';
         ?>
     </header>   
 

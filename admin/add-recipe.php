@@ -131,8 +131,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 }
 
-
-
 ?>
 
 
@@ -150,8 +148,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 <body>
 
     <header>
-         <?php
-        include __DIR__  . '/../includes/header.php';
+        <?php
+        $root = '../'; //location of where this file is rn
+        include __DIR__ . '/../includes/header.php';
         ?>
     </header>   
 

@@ -95,8 +95,9 @@ if (!isset($_SESSION['user_id'])) { //if user is not logged in kick them out(to 
 <body>
 
     <header>
-         <?php
-        include __DIR__  . '/includes/header.php';
+        <?php
+            $root = '../';
+            include __DIR__ . '/../includes/header.php';
         ?>
     </header>   
 

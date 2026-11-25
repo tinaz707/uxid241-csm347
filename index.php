@@ -54,7 +54,8 @@ $errors =search_error($search); //array for errors
     <header>
      
         <?php
-        include __DIR__  . '/includes/header.php'; //DIR = folder for THIS SPECIFIC PAGE + '(instructions on where to go from there)'
+            $root = '';
+            include __DIR__  . '/includes/header.php'; //DIR = folder for THIS SPECIFIC PAGE + '(instructions on where to go from there)'
         ?>
 
         <div class="hero">

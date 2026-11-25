@@ -41,7 +41,8 @@ $steps_image = explode("*", $recipe_id["steps_image"]);
 
     <header>
         <?php
-        include __DIR__  . '/includes/header.php';
+            $root = '';
+            include __DIR__  . '/includes/header.php'; //DIR = folder for THIS SPECIFIC PAGE + '(instructions on where to go from there)'
         ?>
 
            <div class="hero">
