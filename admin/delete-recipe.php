@@ -2,6 +2,11 @@
 declare(strict_types=1);
 session_start();
 
+if (empty($_SESSION['csrf_token'])) {
+  $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+} //from W6 lecture CSRF token -> checks if request came from my website (security check..)
+
+
 //guard
 if (!isset($_SESSION['user_id'])) {
   header('Location: ../login.php');
@@ -10,7 +15,21 @@ if (!isset($_SESSION['user_id'])) {
 
 $conn = require_once __DIR__ . '/../data/db.php';
 require_once __DIR__ . '/../functions.php';
-  $recipe_id = (int) $_GET['recipe_id']; //get the id from the index when clicked (getting it from url)
+
+
+//CSRF ====================================
+$sent = $_POST['csrf_token'] ?? '';
+$known = $_SESSION['csrf_token'] ?? '';
+
+if (!hash_equals($known, $sent)) {
+  http_response_code(403);
+  exit('Invalid CSRF token');
+} 
+// ====================================
+
+// Safe to add / edit / delete a recipe below
+
+$recipe_id = (int) $_GET['recipe_id']; //get the id from the index when clicked (getting it from url)
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
   $recipe_id = (int) $_POST['recipe_id']; //int is converting to a integer since  post values are strings..
@@ -51,14 +70,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 
   <main class="delete-recipe-page">
-    <form action="delete-recipe.php" method="post">
-  
-      <h1>Are you sure you want to delete this recipe?</h1>      
+    <form id="delete-form" action="delete-recipe.php" method="post">
+    
+      <h1>Are you sure you want to DELETE this recipe?</h1>      
       <p>Once deleted it can not be undone</p>
 
-      <button type="submit" aria-label="submit">Confirm Delete</button>
+      <button type="submit" aria-label="submit">Confirm delete</button>
       <input type="hidden" name="recipe_id" value="<?= $recipe_id ?>">        
-      
+      <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>"> 
+
     </form>
   </main>
 

@@ -31,16 +31,8 @@ function recipe_card(array $recipe):string{
 
                 
             <a href="admin/edit-recipe.php?recipe_id='.(int)($recipe["recipe_id"]).'" class="admin-button">Edit</a>                    
-            <a href="admin/delete-recipe.php?recipe_id='.(int)($recipe["recipe_id"]).'" class="admin-button">Delete1</a>                    
+            <a href="admin/delete-recipe.php?recipe_id='.(int)($recipe["recipe_id"]).'" class="admin-button">Delete</a>                    
 
-            <form action="admin/delete-recipe.php" method="POST">
-                <input 
-                    type="hidden" 
-                    name="recipe_id" 
-                    value="'.(int)($recipe["recipe_id"]).'"
-                >
-                <button class="admin-button" type="submit">Delete</button>
-            </form>
                 </div>';
     }
 

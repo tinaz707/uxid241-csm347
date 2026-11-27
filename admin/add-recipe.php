@@ -3,6 +3,11 @@ declare(strict_types=1);
 session_start();
 
 
+if (empty($_SESSION['csrf_token'])) {
+  $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+} //from W6 lecture CSRF token -> checks if request came from my website (security check..)
+
+
 //guard
 if (!isset($_SESSION['user_id'])) { //if user is not logged in kick them out!
   header('Location: ../index.php');
@@ -17,6 +22,19 @@ $errors = [];
 
 //FORM SUBMISSION =================================================================
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
+
+        //CSRF ====================================
+        $sent = $_POST['csrf_token'] ?? '';
+        $known = $_SESSION['csrf_token'] ?? '';
+
+
+       
+        if (!hash_equals($known, $sent)) {
+        http_response_code(403);
+        exit('Invalid CSRF token');
+        } 
+        // ====================================    
+
     $title = trim_post('title');                     //get name=title + trim space...
     $subtitle = trim_post('subtitle');
     $description = trim_post('description');
@@ -167,6 +185,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
        
 
         <form id="add-style" action='add-recipe.php' method="post" enctype="multipart/form-data">
+            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>"> 
+
            <fieldset><?php foreach($errors as $error): ?> 
                         <p class="error"><?= e($error) ?></p>  <!-- '?=' shortcut for echo -->
                     <?php endforeach;?>

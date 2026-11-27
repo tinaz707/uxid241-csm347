@@ -2,6 +2,11 @@
 declare(strict_types=1);
 session_start();
 
+if (empty($_SESSION['csrf_token'])) {
+  $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+} //from W6 lecture CSRF token -> checks if request came from my website (security check..)
+
+
 //guard
 if (!isset($_SESSION['user_id'])) { //if user is not logged in kick them out(to log in!)!
   header('Location: ../login.php');
@@ -31,6 +36,20 @@ require_once __DIR__ . '/../functions.php';
 
     //UPDATE
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
+
+
+        //CSRF ====================================
+        $sent = $_POST['csrf_token'] ?? '';
+        $known = $_SESSION['csrf_token'] ?? '';
+
+        if (!hash_equals($known, $sent)) {
+        http_response_code(403);
+        exit('Invalid CSRF token');
+        } 
+        // ====================================
+
+
+
             $title = trim_post('title');
             $subtitle = trim_post('subtitle');
             $description = trim_post('description');
@@ -110,8 +129,10 @@ require_once __DIR__ . '/../functions.php';
        
 
         <!-- things weren't updated AI helped to troubleshoot and gave me value for action / edit-recipe php is changing the db so then the recipe.php reads the db and updates  -->
-        <form id="add-style" action="edit-recipe.php?recipe_id= <?=$recipe_id?>" method="post"> 
-           <fieldset><?php foreach($errors as $error): ?> 
+        <form id="add-style" action="edit-recipe.php?recipe_id=<?=$recipe_id?>" method="post"> 
+              <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>"> 
+  
+        <fieldset><?php foreach($errors as $error): ?> 
                         <p class="error"><?= e($error) ?></p>  <!-- '?=' shortcut for echo -->
                     <?php endforeach;?>
 

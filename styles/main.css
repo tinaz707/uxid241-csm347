@@ -630,7 +630,7 @@ body{
     }
 
     /*LOGIN PAGE + admin/index.php page(after logging in)*/
-    .login-page, .add-recipe-page{
+    .login-page, .add-recipe-page, .delete-recipe-page{
         background-color: var(--primary);
         border-radius: 50px 50px 0 0;
         margin: 0;
@@ -771,16 +771,19 @@ body{
             text-transform: uppercase;
             padding-bottom: 30px;
         }
+
+       #delete-form{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            button{
+                margin-top: 50px;
+            }
+        }
     }
 
-   /*Delete Page*/
-    .delete-recipe-page{
-        margin-top: 0;
-        padding-top: 60px;
-
-       
-
-    }
+   
    
 
     footer{
