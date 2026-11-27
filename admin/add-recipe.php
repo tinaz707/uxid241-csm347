@@ -2,19 +2,16 @@
 declare(strict_types=1);
 session_start();
 
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
-
-$conn = require_once __DIR__ . '/../data/db.php';
-require_once __DIR__ . '/../functions.php';
-
 
 //guard
 if (!isset($_SESSION['user_id'])) { //if user is not logged in kick them out!
   header('Location: ../index.php');
   exit;
 }
+
+$conn = require_once __DIR__ . '/../data/db.php';
+require_once __DIR__ . '/../functions.php';
+
  
 $errors = [];
 
@@ -34,32 +31,40 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     //=====UPLOADING SINGLE IMAGES=====================================================
     $upload_folder =  __DIR__ . '/../assets/uploads'; //folder on server for uploaded images
-
     //AI : __DIR__ → PHP automatically replaces this with the folder containing the PHP file you're currently in
-    // saying start in admin folder...go up one (../)..go into assets..go into uploads | the DIR makes the starting point clear...rather than just the path (image wont know exactly where to go)
 
-    //update this evetually bc this has no error/validation (main image + ingridents image --> but it works)
     //AI to help clarify this was correct
-    $main_image = 'assets/uploads/' . save_uploads( //send main image through the function and store that in the path ... ex (assets/uploads/chicken.png)
-        $_FILES['photo'] ['tmp_name'],
-        $_FILES['photo'] ['name'],
-        $_FILES['photo'] ['size'],
-        $_FILES['photo'] ['error'],
-        $upload_folder
-        
-    );
+    //=====MAIN IMAGE ======================================================================
+   try{
+            $main_image = 'assets/uploads/' . save_uploads( //send main image through the function and store that in the path ... ex (assets/uploads/chicken.png)
+            $_FILES['photo'] ['tmp_name'],
+            $_FILES['photo'] ['name'],
+            $_FILES['photo'] ['size'],
+            $_FILES['photo'] ['error'],
+            $upload_folder
+            
+        );
+   }
+     catch (RuntimeException $e) { //if something goes wrong --> those error messages with throw
+        $errors[] = $e->getMessage(); //AI to cut out the example code from lecture and make things work related to what's in my file..    
+            
+   }
 
-    $ingredients_image = 'assets/uploads/' . save_uploads(
-        $_FILES['ingredients_image'] ['tmp_name'],
-        $_FILES['ingredients_image'] ['name'],
-        $_FILES['ingredients_image'] ['size'],
-        $_FILES['ingredients_image'] ['error'],
-        $upload_folder
-        
-    );
+   
+    //=====INGREDIENTS IMAGE ====================================================================
+   try{
+        $ingredients_image = 'assets/uploads/' . save_uploads(
+                $_FILES['ingredients_image'] ['tmp_name'],
+                $_FILES['ingredients_image'] ['name'],
+                $_FILES['ingredients_image'] ['size'],
+                $_FILES['ingredients_image'] ['error'],
+                $upload_folder
+                
+            );
+   }  catch (RuntimeException $e) { //if something goes wrong --> those error messages with throw
+        $errors[] = $e->getMessage(); //AI to cut out the example code from lecture and make things work related to what's in my file..    
 
-
-
+   }
 
 
     //MULTIPLE STEPS IMAGES=======================================

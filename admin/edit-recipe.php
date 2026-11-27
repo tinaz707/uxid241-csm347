@@ -2,15 +2,16 @@
 declare(strict_types=1);
 session_start();
 
-
-$conn = require_once __DIR__ . '/../data/db.php';
-require_once __DIR__ . '/../functions.php';
-
 //guard
 if (!isset($_SESSION['user_id'])) { //if user is not logged in kick them out(to log in!)!
   header('Location: ../login.php');
   exit;
 }
+
+$conn = require_once __DIR__ . '/../data/db.php';
+require_once __DIR__ . '/../functions.php';
+
+
 
 
 
@@ -143,7 +144,7 @@ if (!isset($_SESSION['user_id'])) { //if user is not logged in kick them out(to 
                 </div>
 
                 <div class="label-input">
-                    <label for="total-time">Total Time</label>
+                    <label for="total-time">Total Time (Min)</label>
                     <input value="<?= ($recipe['total_time']) ?>" class="add-input" type="number" id="total-time" name="total-time" required>
                 </div>
 

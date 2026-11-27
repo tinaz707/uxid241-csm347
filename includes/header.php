@@ -7,7 +7,7 @@ declare(strict_types=1);
         <nav>
             <ul class="menu">
 
-<!--AI to help with setting up logout, helped to figure out how to show the text without using echo-->
+    <!--AI to help with setting up logout, helped to figure out how to show the text without using echo-->
                  <!-- if  session is(isset=if) where the user is logged in show logout or else if not show login  -->
                    <?php if (isset($_SESSION['user_id'])):?>   
                         <li class="menu-item">
@@ -35,11 +35,11 @@ declare(strict_types=1);
 
              <div class="menu-icon">
                 <div class="open-menu">
-                    <img src="assets/menu-open.png" alt="hamburger menu icon">
+                    <img src="<?php echo $root; ?>assets/menu-open.png" alt="hamburger menu icon">
                 </div>
 
                 <div class="close-icon">
-                    <img src="assets/menu-close.png" alt="x">
+                    <img src="<?php echo $root; ?>assets/menu-close.png" alt="x">
                 </div>
             </div>
         </nav>

@@ -27,18 +27,18 @@ function recipe_card(array $recipe):string{
 
     //AI to troubleshoot so making the button to a form with delete so that the delete page can GET the id
         $buttons = '
-                <div class="logged-in-buttons">
+        <div class="logged-in-buttons">
 
                 
-        <a href="admin/edit-recipe.php?recipe_id='.(int)($recipe["recipe_id"]).'" class="admin-button">Edit</a>                    
-                    
+            <a href="admin/edit-recipe.php?recipe_id='.(int)($recipe["recipe_id"]).'" class="admin-button">Edit</a>                    
+            <a href="admin/delete-recipe.php?recipe_id='.(int)($recipe["recipe_id"]).'" class="admin-button">Delete1</a>                    
+
             <form action="admin/delete-recipe.php" method="POST">
                 <input 
                     type="hidden" 
                     name="recipe_id" 
                     value="'.(int)($recipe["recipe_id"]).'"
                 >
-
                 <button class="admin-button" type="submit">Delete</button>
             </form>
                 </div>';
@@ -63,55 +63,6 @@ function recipe_card(array $recipe):string{
                     '.$buttons.'
                 </div>';
 } 
-
-function recipe_card_admin(array $recipe):string{
-
-    $buttons = ''; //not logged in means no button(since its empty)
-
-    //for beta testing purposes an empty image
-    $image = '';
-
-    if(isset($_SESSION['user_id'])){
-
-    //AI to troubleshoot so making the button to a form with delete so that the delete page can GET the id
-        $buttons = '
-                <div class="logged-in-buttons">
-
-                
-        <a href="admin/edit-recipe.php?recipe_id='.(int)($recipe["recipe_id"]).'" class="admin-button">Edit</a>                    
-                    
-            <form action="admin/delete-recipe.php" method="POST">
-                <input 
-                    type="hidden" 
-                    name="recipe_id" 
-                    value="'.(int)($recipe["recipe_id"]).'"
-                >
-
-                <button class="admin-button" type="submit">Delete</button>
-            </form>
-                </div>';
-    }
-
-    //if image is not null
-    if ($recipe["main_image"] !== null){
-        $image = '<img src="../'.e($recipe["main_image"]).'" alt="completed recipe image">';
-
-    }
-
-    //used AI to trouble shoot this...had href on the outside so it was creating an extra <a> and messing up my grid...put it inside the div and it worked!
-        return '
-                <div class="recipe-card">
-                    <a class="recipe-card-link" href="admin/recipe.php?recipe_id='.(int)($recipe["recipe_id"]).'">
-                        '.$image.'               
-            <div class="card-description">
-                                <h2>'.e($recipe["title"]).'</h2>  
-                                <p>'.e($recipe["subtitle"]).'</p>
-                            </div>        
-                        </a>   
-                    '.$buttons.'
-                </div>';
-} 
-
 
 
 //DEFINE ERRORS

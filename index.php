@@ -129,21 +129,7 @@ $errors =search_error($search); //array for errors
     <!-- Used ai to troubleshoot foreach loop, was using ';' rather than : -->
     <div class="recipe-board">
     <!-- RECIPE CARD DISPLAY====================================================  -->
-        <?php  //if the matches is empty show the cards for all , else show the matches
-            // if ($search !== ''){ //if the search is not empty...
-            //     foreach ($recipes as $recipe){ //take the matches and make each item in the array as one 
-            //     echo recipe_card($recipe); //uses the function to display matches
-            //     }
-            // } elseif ($categories !== ''){ //if category is not empty..
-            //     foreach($category_matches as $category_match){
-            //         echo recipe_card($category_match);
-            //     }
-            // } else{ //if search is empty and no button is clicked
-            //     foreach ($recipes as $recipe){
-            //     echo recipe_card($recipe); //uses the function to display all 
-            //     }
-            // }
-
+        <?php  
            foreach ($recipes as $recipe){
                 echo recipe_card($recipe);
            }
