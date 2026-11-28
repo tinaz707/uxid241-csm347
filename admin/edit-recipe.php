@@ -62,6 +62,7 @@ require_once __DIR__ . '/../functions.php';
             $steps = trim_post('steps');
 
         if ($title === '') {
+
                 $errors[] = 'Recipe name is required!';
             }
 
@@ -79,6 +80,7 @@ require_once __DIR__ . '/../functions.php';
                             categories_id = ?,
                             ingredients = ?,
                             steps = ?
+                            
                         
                         WHERE recipe_id = ?';
 
@@ -93,6 +95,90 @@ require_once __DIR__ . '/../functions.php';
                 exit; //was missing this --> tells php to stop running the page
 
             }
+
+
+        //===============below is stuff for image
+
+            //=====UPLOADING SINGLE IMAGES=====================================================
+        $upload_folder =  __DIR__ . '/../assets/uploads'; //folder on server for uploaded images
+        //AI : __DIR__ → PHP automatically replaces this with the folder containing the PHP file you're currently in
+
+        //AI to help clarify this was correct
+        //=====MAIN IMAGE ======================================================================
+    try{
+                $main_image = 'assets/uploads/' . save_uploads( //send main image through the function and store that in the path ... ex (assets/uploads/chicken.png)
+                $_FILES['photo'] ['tmp_name'],
+                $_FILES['photo'] ['name'],
+                $_FILES['photo'] ['size'],
+                $_FILES['photo'] ['error'],
+                $upload_folder
+                
+            );
+    }
+        catch (RuntimeException $e) { //if something goes wrong --> those error messages with throw
+            $errors[] = $e->getMessage(); //AI to cut out the example code from lecture and make things work related to what's in my file..    
+                
+    }
+
+    
+        //=====INGREDIENTS IMAGE ====================================================================
+    try{
+            $ingredients_image = 'assets/uploads/' . save_uploads(
+                    $_FILES['ingredients_image'] ['tmp_name'],
+                    $_FILES['ingredients_image'] ['name'],
+                    $_FILES['ingredients_image'] ['size'],
+                    $_FILES['ingredients_image'] ['error'],
+                    $upload_folder
+                    
+                );
+    }  catch (RuntimeException $e) { //if something goes wrong --> those error messages with throw
+            $errors[] = $e->getMessage(); //AI to cut out the example code from lecture and make things work related to what's in my file..    
+
+    }
+
+
+        //MULTIPLE STEPS IMAGES=======================================
+        //AI helped reorganize my code that I had from the lecture -> had some missing brackets and semi-colons//
+        $step_images = [];
+
+        // Check that step images were submitted and that the names are an array
+        // because name="steps_image[]" allows multiple files                      
+        if (isset($_FILES['steps_image']['name']) && is_array($_FILES['steps_image']['name'])) {
+
+            $files = $_FILES['steps_image'];
+
+            foreach ($files['name'] as $i => $original_name) { //loop through EACH uploaded image
+
+                // if there is a file error(no upload) just skip that one and CONTINUE
+                if ($files['error'][$i] === UPLOAD_ERR_NO_FILE) {
+                    continue;
+                }
+
+                try { //try to upload the image...something might go wrong..but save the image
+                    $saved = save_uploads( //send image through function | the $saved value is what gets returned so ex 'chicken.png'...
+                        $files['tmp_name'][$i], //tmp location of this '[i]=specific image'
+                        $original_name,
+                        $files['size'][$i],
+                        $files['error'][$i],
+                        $upload_folder
+                    );
+
+                $step_images[] = 'assets/uploads/' . $saved; //Add the browser-usable path for this image to the array
+
+
+                } catch (RuntimeException $e) { //if something goes wrong --> those error messages with throw
+
+                        $errors[] = $e->getMessage(); //AI to cut out the example code from lecture and make things work related to what's in my file..
+                
+                }
+
+        
+            }
+
+            $steps_image = implode('*', $step_images);//AI help -> Turn step image array into same * format to match what i have in db
+
+    }
+
 
 
     }
@@ -152,8 +238,15 @@ require_once __DIR__ . '/../functions.php';
                 </div>
 
                 <div class="label-input">
-                    <label for="photo">Cover Photo</label>
-                    <input value = "<?= e($recipe["main_image"]) ?>" class="add-input" type="text" id="photo" name="photo" required>
+                    <label for="photo">Main Photo</label>
+                    <!-- <input value = "<?= e($recipe["main_image"]) ?>" class="add-input" type="text" id="photo" name="photo" required> -->
+                    <input 
+                         class="add-input"
+                         type="file"
+                         id="photo" 
+                         name="photo" 
+                         >
+                
                 </div>
            </fieldset>
 
@@ -271,6 +364,7 @@ require_once __DIR__ . '/../functions.php';
     </div>
     </main>
 
+       <script src="../scripts/main.js"></script>   
 
 </body>
 </html>

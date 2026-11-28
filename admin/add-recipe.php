@@ -323,6 +323,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     </div>
     </main>
 
+       <script src="../scripts/main.js"></script>   
 
 </body>
 </html>

@@ -55,7 +55,17 @@ header{
             display: flex;
             flex-direction: row;
             align-items: center;
-            justify-content: flex-end;
+            justify-content: space-between;
+
+            .site-name{
+                padding: 15px 20px;
+                a{
+                    img{
+                        height: 50px;
+                    }    
+                }
+
+            }
          
             .menu{
                display: flex;
@@ -107,24 +117,30 @@ header{
         }
 
         /*EDITS FOR LATER MAKE THE HERO IMAGE TAKE UP LESS SPACE*/
-        .hero-image{
-            width: 100%;
-          
-            display: block;
 
+        .hero{
+
+            position: relative;
+            .hero-image{
+                    width: 100%;
+                
+                    display: block;
+
+                }
+
+                .logo-image{
+                    width: 20%;
+                    position: absolute;
+
+                    /*places it into parent container*/
+                    top: 50%;
+                    left: 50%;
+
+                    /*centers the logo*/
+                    transform: translate(-50%, -50%); 
+                }
         }
-
-        .logo-image{
-            width: 360px;
-            position: absolute;
-
-            /*places it into parent container*/
-            top: 50%;
-            left: 50%;
-
-            /*centers the logo*/
-            transform: translate(-50%, -50%); 
-        }
+ 
     }
 body{
 
@@ -204,6 +220,7 @@ body{
             flex-direction: row;
             gap: var(--small-gap); 
             flex-wrap: wrap;
+            align-items: center;
 
             p{
                 font-style: italic;
@@ -228,13 +245,14 @@ body{
 
                     text-transform: uppercase;
 
-                    transition: 0.3s ease;
+                    transition:transform 0.3s ease;
                 }
                 .filter-choices-button:hover{
                         background-color: var(--dark-brown);
                         color: var(--primary);
                         border: 1px solid var(--primary);
                         font-weight: 700;
+                        transform: scale(1.1);
 
                     }
                     
@@ -327,7 +345,7 @@ body{
                             text-align: center;
 
                             text-transform: uppercase;
-                            transition: 0.2s ease;
+                            transition: transform 0.2s ease-in-out;
                         }
                         
                         .admin-button:hover{
@@ -335,6 +353,7 @@ body{
                             color: var(--primary);
                             border: 1px solid var(--primary);
                             font-weight: 700;
+                            transform: scale(1.05);
                         }
                     
                     }
@@ -346,11 +365,11 @@ body{
             
                         
 
-            .recipe-card:hover {
+             .recipe-card:hover {
                     cursor: pointer;
                     transform: translateY(-0.8px);
                   
-                }
+                } 
         }
 
     }
@@ -640,6 +659,7 @@ body{
         
         .welcome-h2{
             color: var(--dark-brown);
+            text-align: center;
         }
         
         nav{
@@ -668,6 +688,9 @@ body{
             .details-servings{
                 display: flex;
                 flex-direction: row;
+                justify-content: center;
+                flex-wrap: wrap;
+
             }
 
            label{
@@ -756,12 +779,16 @@ body{
                     letter-spacing: var(--letter-space);
                     
                     cursor: pointer;
-                    transition: 0.3s ease;
+                transition: font-size 0.3s ease;
 
 
 
 
                 }
+
+            button:hover, .submit-button:hover{
+                font-size: 20px;
+            }
       
      
         .login-error{
@@ -778,8 +805,37 @@ body{
             align-items: center;
 
             button{
-                margin-top: 50px;
+                margin-top: 50px;                                   
+                transition: transform 0.5s ease-in-out;
+
             }
+
+            button:hover{
+                transform: scale(1.1);
+            }
+
+            .nvm-button{
+                    text-decoration: none;
+                    padding: 15px 20px;
+                    border-radius: var(--box-corner);
+                    background-color: transparent;
+                    border: 1px solid var(--dark-brown);
+                    color: var(--dark-brown);
+                    
+                    text-transform: uppercase;
+                    margin-top: 30px;
+
+                                    transition: transform 0.5s ease;
+
+            }
+
+            .nvm-button:hover{
+                transform: scale(1.1);
+
+            }
+
+                 
+                                                              
         }
     }
 
@@ -828,42 +884,203 @@ body{
 
 
         header{
+            position: relative;
+            z-index: 100;
             nav{
                 padding: 5px 20px ;
-                .menu {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                z-index: 1000;
+
+
+                /*AI to get code for transitions*/
+                .menu{
+                    display: flex;
                    flex-direction: column;
+                   position: absolute;
+                   top: 100%;
+                   left: 0;
+                   width: 100%;
+                   height: 100vh;
+                   padding: 50px 20px;
+                   z-index: 50;
+                   gap: 10px;
+                   background-color: var(--dark-brown);
+
+                   margin: 0;
+
+                    opacity: 0;
+                    visibility: hidden;
+                    transform: translateY(-100%);
+                    transition: transform 0.5s ease-in-out,
+                                opacity 0.5s ease-in-out,
+                                visibility 0.5s;
+
+                }
+
+                .menu.show {
+                 
+                    opacity: 1;
+                    visibility: visible;
+                    transform: translateY(0);
+
 
                     ul{
                         flex-direction: column;
+                    }
+
+                    .menu-item{
+                        .menu-item-link{
+                            font-size: var(--heading-text);
+                        }
                     }
                     
                 }
                 
                 .menu-icon {
                     display:block;
-                    padding: 15px 20px;
+                    display: flex;
+                    flex-direction: row;
+                    gap: 5px;
+                    padding: 15px 0;
 
-                    .open-menu{
-                        img{
-                            display: block;
+                    
+
+                            
+                    .hide{
+                        display: none;
+                    }
+
+                    .hidden{
+                        opacity: 0;
+                        z-index: -5;
+                    }
+
+                }
+
+            }
+
+            .hero{
+
+                margin-top: 90px;
+                .hero-image{
+                    width: 100%;
+                }
+
+                .logo-image{
+
+                  
+                        width: 60%;
+
+              }
+
+            }
+
+
+        }
+
+        main{
+
+           margin-top: 0;
+            border-radius: 0;
+            padding: 0 20px;
+            row-gap: 40px;
+
+        .filter{
+            display: flex;
+            flex-direction: column;
+            
+            .filter-choices{
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+                            align-items: baseline;
+
+            }
+        }
+
+            .recipe-board{
+                .recipe-card{
+                    margin: auto;
+                    width: 300px;
+
+                    .logged-in-buttons{
+                        gap: 10px;
+                    
+                        .admin-button{
+                            max-width: 130px;
+                        }
+                    }
+                }
+            }
+        }
+
+        /*LOGIN*/
+        .login-page, .add-recipe-page, .delete-recipe-page{
+            padding: 20px;
+            margin-top: 120px;
+
+            .add-recipe{
+                    
+                #add-style{
+                    padding: 10px 10px 40px;
+                }
+            
+            }
+
+            #delete-form{
+                padding: 20px;
+                text-align: center;
+
+                
+            }
+
+        }
+
+        .recipe-main{
+                padding: 40px;
+            
+            .recipe-overview{
+                                padding: 40px 40px 0 40px;
+                                gap: var(--small-gap);
+
+
+                .recipe-info{
+                    flex-direction: column;
+
+                    .recipe-photo{
+                        width: 300px;
+                    }
+                }
+
+
+                .ingredients-and-instructions{
+                    flex-direction: column;
+
+                    .instructions{
+                        .instructions-title{
+                            font-size: var(--sub-heading-text);
+                            margin-bottom: 10px;
+                        }
+
+                        .step-desc-right{
+                            gap: 10px;
                         }
                     }
                 }
 
             }
 
-            .hero-image{
-                width: 150%;
-            }
-        }
-
-        main{
-            margin-top: -50px;
-
           
         }
+          footer{
+                margin: auto;
+                padding: 40px 50px;
+            }
+    }
 
-
-}
+   
 
 }

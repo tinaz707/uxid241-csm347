@@ -35,6 +35,7 @@ if (!isset($_SESSION['user_id'])) {
           <h2 class="welcome-h2">You are Logged In! Welcome!</h2>
     </main>
     
-  
+       <script src="../scripts/main.js"></script>   
+
 </body>
 </html>

@@ -38,3 +38,4 @@ ChatGPT-6:
 //Helped figure out where the value goes for a <textarea>
 //Helped to figure out how to show the recipe's category on the edit page
 //Help with Image uploaded logic + provided certain lines of code when troubleshooting 
+//Used to build transition for closing and opening mobile navbar

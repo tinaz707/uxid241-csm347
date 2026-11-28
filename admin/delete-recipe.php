@@ -17,22 +17,26 @@ $conn = require_once __DIR__ . '/../data/db.php';
 require_once __DIR__ . '/../functions.php';
 
 
-//CSRF ====================================
-$sent = $_POST['csrf_token'] ?? '';
-$known = $_SESSION['csrf_token'] ?? '';
 
-if (!hash_equals($known, $sent)) {
-  http_response_code(403);
-  exit('Invalid CSRF token');
-} 
-// ====================================
 
-// Safe to add / edit / delete a recipe below
+
 
 $recipe_id = (int) $_GET['recipe_id']; //get the id from the index when clicked (getting it from url)
 
-if($_SERVER['REQUEST_METHOD'] === 'POST'){
-  $recipe_id = (int) $_POST['recipe_id']; //int is converting to a integer since  post values are strings..
+if($_SERVER['REQUEST_METHOD'] === 'POST'){ //once user clicks confirms delete...
+
+  //CSRF ==================================== check for CSRF token in $_POST ==== VALIDATE
+  $sent = $_POST['csrf_token'] ?? '';
+  $known = $_SESSION['csrf_token'] ?? '';
+
+  if (!hash_equals($known, $sent)) {
+    http_response_code(403);
+    exit('Invalid CSRF token');
+  } 
+  // ====================================
+
+
+  $recipe_id = (int) $_POST['recipe_id']; //int is converting to a integer since  post values are strings.. === DELETE
   $sql= 'DELETE FROM recipes WHERE recipe_id = ?'; //AI troubleshoot...I had 'id' when i just needed 'recipe_id' bc that is whats in my db
 
   mysqli_execute_query(
@@ -75,13 +79,16 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
       <h1>Are you sure you want to DELETE this recipe?</h1>      
       <p>Once deleted it can not be undone</p>
 
-      <button type="submit" aria-label="submit">Confirm delete</button>
+      <button id="confirm-button" type="submit" aria-label="submit">Confirm delete</button>
       <input type="hidden" name="recipe_id" value="<?= $recipe_id ?>">        
       <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>"> 
+
+      <a href="../index.php" class="nvm-button">Nevermind, keep it!</a>
 
     </form>
   </main>
 
+       <script src="../scripts/main.js"></script>   
 
 </body>
 </html>

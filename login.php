@@ -82,7 +82,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //if a form is submitting then...
     </div>
     </main>
     
-  
+       <script src="scripts/main.js"></script>   
+
 </body>
 
 

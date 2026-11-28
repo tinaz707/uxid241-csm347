@@ -59,7 +59,12 @@ $errors =search_error($search); //array for errors
         ?>
 
         <div class="hero">
-            <img class="hero-image" src="assets/hero_2x.png" alt="">
+
+        <picture>
+             <source media="(max-width: 1024px)" srcset="assets/hero_mobile.png">
+            <img class="hero-image" src="assets/hero_2x.png" alt="image of someone in the kitchen cooking">
+
+        </picture>
             <img class="logo-image" src="assets/logo_2x.png" alt="logo for YUM!">
         </div>
 
@@ -143,6 +148,7 @@ $errors =search_error($search); //array for errors
     
 </main>
 
+     <script src="scripts/main.js"></script>   
 
 </body>
 </html>

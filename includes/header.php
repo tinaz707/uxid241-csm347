@@ -4,10 +4,16 @@ declare(strict_types=1);
 
 //Used AI to figure out troubleshooting with header links when logged in vs logged out -> rather than file location, used the url...
 ?>
-        <nav>
-            <ul class="menu">
+    <nav>
 
-    <!--AI to help with setting up logout, helped to figure out how to show the text without using echo-->
+    <div class="site-name">
+        <a href="<?php echo $root;?>index.php">
+            <img src="<?php echo $root;?>assets/nav-logo.svg" alt="logo for YUM">
+        </a>
+    </div>
+            <ul id="main-menu" class="menu">
+
+                <!--AI to help with setting up logout, helped to figure out how to show the text without using echo-->
                  <!-- if  session is(isset=if) where the user is logged in show logout or else if not show login  -->
                    <?php if (isset($_SESSION['user_id'])):?>   
                         <li class="menu-item">
@@ -34,11 +40,11 @@ declare(strict_types=1);
             </ul>
 
              <div class="menu-icon">
-                <div class="open-menu">
+                <div id="menu-open-icon" class="open-menu" >
                     <img src="<?php echo $root; ?>assets/menu-open.png" alt="hamburger menu icon">
                 </div>
 
-                <div class="close-icon">
+                <div id="menu-close-icon" class="close-icon hide">
                     <img src="<?php echo $root; ?>assets/menu-close.png" alt="x">
                 </div>
             </div>
